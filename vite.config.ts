@@ -1,6 +1,12 @@
 import { defineConfig } from "vitest/config";
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@": new URL("./src", import.meta.url).pathname,
+    },
+  },
   test: {
     globals: true,
     environment: "jsdom",
@@ -15,4 +21,7 @@ export default defineConfig({
       exclude: ["src/components/skeleton/**/*.tsx"],
     },
   },
+  plugins: [
+    tailwindcss(),
+  ],
 });
