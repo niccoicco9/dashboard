@@ -17,8 +17,8 @@ function UserCard({ user }: UserCardProps) {
           className={styles.avatar}
         />
         <div className={styles.details}>
-          <h3 className={styles.name}>{user.name}</h3>
-          <p className={styles.email}>{user.email}</p>
+          <h3 className={styles.name} title={user.name}>{user.name}</h3>
+          <p className={styles.email} title={user.email}>{user.email}</p>
         </div>
       </div>
 
