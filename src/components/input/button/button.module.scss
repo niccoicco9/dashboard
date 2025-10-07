@@ -29,3 +29,8 @@
 
 .contained:hover { filter: brightness(0.95); }
 
+/* Disable hover visuals while active */
+.noHover:hover { filter: none; background: inherit; color: inherit; }
+.noHover.contained:hover { background: var(--accent); color: var(--accent-contrast); }
+.noHover.outlined:hover { background: transparent; color: var(--text); }
+

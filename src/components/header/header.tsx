@@ -41,6 +41,7 @@ function Header() {
             onClick={toggleTheme}
             icon={isDark ? <SunIcon /> : <MoonIcon />}
             title={ isDark ? LIGHT_MODE_BUTTON_TEXT : DARK_MODE_BUTTON_TEXT }
+            disableHoverOnClick
           />
         </div>
       </div>
