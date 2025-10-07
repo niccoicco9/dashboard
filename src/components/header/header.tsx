@@ -1,7 +1,7 @@
 import logoSource from "@/assets/dashboard.svg";
 import { DARK_MODE_BUTTON_TEXT, HEADER_TITLE, LIGHT_MODE_BUTTON_TEXT } from "@/consts/text.const";
 import Button from "../input/button/button";
-import { MoonIcon } from "lucide-react";
+import { MoonIcon, SunIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/consts/routes.const";
 import { useEffect, useState } from "react";
@@ -42,7 +42,7 @@ function Header() {
           <div className="flex items-center gap-2">
             <Button
               onClick={toggleTheme}
-              icon={<MoonIcon className="h-5 w-5 text-gray-700 dark:text-gray-200" />}
+              icon={isDark ? <SunIcon className="h-5 w-5 text-gray-700 dark:text-gray-200" /> : <MoonIcon className="h-5 w-5 text-gray-700 dark:text-gray-200" />}
               title={ isDark ? LIGHT_MODE_BUTTON_TEXT : DARK_MODE_BUTTON_TEXT }
             />
             </div>
