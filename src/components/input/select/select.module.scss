@@ -1,0 +1,100 @@
+.selectContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  z-index: 10;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  border-radius: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.selectContainer:hover .selectIcon {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.select {
+  width: 100%;
+  padding: 0.875rem 3rem 0.875rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--background);
+  color: var(--text);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--card-surface);
+  }
+
+  &:hover {
+    border-color: var(--primary);
+    background: var(--card-surface);
+  }
+}
+
+.selectActive {
+  border-color: var(--primary) !important;
+  background: var(--card-surface) !important;
+  box-shadow: 0 0 0 1px var(--primary) !important;
+}
+
+.clearButton {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: none;
+  border-radius: 0.5rem;
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #dc2626;
+    transform: translateY(-50%) scale(1.15);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+@media (min-width: 768px) {
+  .selectContainer {
+    width: 10rem;
+    flex-shrink: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .selectContainer {
+    width: 9rem;
+  }
+}

@@ -20,7 +20,9 @@
   width: 40px;
 }
 
-.logoDark { filter: invert(1) brightness(1.1); }
+.logoDark { 
+  filter: grayscale(1) brightness(1.5);
+}
 
 .title {
   font-weight: 600;
@@ -41,7 +43,7 @@
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   cursor: pointer;
 }
 

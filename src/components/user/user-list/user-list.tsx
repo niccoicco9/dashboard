@@ -4,6 +4,7 @@ import { userService } from '../../../services/user.service';
 import UserCard from '../user-card/user-card';
 import UserCardSkeleton from '../user-card-skeleton/user-card-skeleton';
 import UserSidePanel from '../user-sidepanel/user-sidepanel';
+import NoUsers from '../no-users/no-users';
 import Toolbar from '../../toolbar/toolbar';
 import styles from './user-list.module.scss';
 
@@ -104,13 +105,7 @@ function UserList() {
             <UserCard key={user.id} user={user} onClick={() => handleUserClick(user)} />
           ))
         ) : (
-          <div className={styles.noResults}>
-            <div className={styles.noResultsIcon}>🔍</div>
-            <h3 className={styles.noResultsTitle}>No users found</h3>
-            <p className={styles.noResultsText}>
-              Try adjusting your search criteria or filters
-            </p>
-          </div>
+          <NoUsers />
         )}
       </div>
       

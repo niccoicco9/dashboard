@@ -26,36 +26,4 @@
   .list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-.noResults {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1rem;
-  text-align: center;
-  background: var(--card-surface);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.noResultsIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  opacity: 0.6;
-}
-
-.noResultsTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-}
-
-.noResultsText {
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  max-width: 20rem;
-}
 

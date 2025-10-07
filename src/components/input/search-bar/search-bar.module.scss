@@ -1,0 +1,84 @@
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--background);
+  color: var(--text);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--card-surface);
+  }
+
+  &:hover {
+    border-color: var(--primary);
+    background: var(--card-surface);
+  }
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+}
+
+.clearButton {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: none;
+  border-radius: 0.5rem;
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #dc2626;
+    transform: translateY(-50%) scale(1.15);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+@media (min-width: 768px) {
+  .searchContainer {
+    flex: 1;
+    max-width: 20rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .searchContainer {
+    max-width: 18rem;
+  }
+}
