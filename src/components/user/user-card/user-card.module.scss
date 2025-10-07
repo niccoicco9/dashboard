@@ -4,6 +4,13 @@
   border: 1px solid var(--border);
   padding: 1.5rem;
   box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
 }
 
 .badge {
@@ -19,7 +26,7 @@
 .name { font-size: 1.125rem; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .email { font-size: 0.875rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.header { display: flex; align-items: center; gap: 1rem; }
+.header { display: flex; align-items: center; }
 .details { flex: 1; min-width: 0; }
 .label { font-size: 0.875rem; color: var(--text-muted); }
 

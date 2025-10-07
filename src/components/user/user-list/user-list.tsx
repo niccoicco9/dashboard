@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import { UserWithRole } from '../../../types/user.types';
 import { userService } from '../../../services/user.service';
 import UserCard from '../user-card/user-card';
+import UserSidePanel from '../user-sidepanel/user-sidepanel';
 import styles from './user-list.module.scss';
 
 function UserList() {
   const [users, setUsers] = useState<UserWithRole[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserWithRole | null>(null);
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -26,6 +29,16 @@ function UserList() {
 
     fetchUsers();
   }, []);
+
+  const handleUserClick = (user: UserWithRole) => {
+    setSelectedUser(user);
+    setIsSidePanelOpen(true);
+  };
+
+  const handleCloseSidePanel = () => {
+    setIsSidePanelOpen(false);
+    setSelectedUser(null);
+  };
 
   if (loading) {
     return (
@@ -52,9 +65,15 @@ function UserList() {
       </div>
       <div className={styles.list}>
         {users.map((user) => (
-          <UserCard key={user.id} user={user} />
+          <UserCard key={user.id} user={user} onClick={() => handleUserClick(user)} />
         ))}
       </div>
+      
+      <UserSidePanel
+        user={selectedUser}
+        isOpen={isSidePanelOpen}
+        onClose={handleCloseSidePanel}
+      />
     </div>
   );
 }

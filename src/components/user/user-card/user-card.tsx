@@ -4,18 +4,14 @@ import Badge from '../badge/badge';
 
 interface UserCardProps {
   user: UserWithRole;
+  onClick: () => void;
 }
 
-function UserCard({ user }: UserCardProps) {
+function UserCard({ user, onClick }: UserCardProps) {
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={onClick}>
       <div className={styles.header}>
-        <img
-          src={user.avatar}
-          alt={`${user.name} avatar`}
-          className={styles.avatar}
-        />
         <div className={styles.details}>
           <h3 className={styles.name} title={user.name}>{user.name}</h3>
           <p className={styles.email} title={user.email}>{user.email}</p>
@@ -26,10 +22,6 @@ function UserCard({ user }: UserCardProps) {
         <div className={styles.row}>
           <span className={styles.label}>Role</span>
           <Badge kind="role" variant={user.role}>{user.role}</Badge>
-        </div>
-        <div className={styles.row}>
-          <span className={styles.label}>Status</span>
-          <Badge kind="status" variant={user.status}>{user.status}</Badge>
         </div>
       </div>
     </div>
