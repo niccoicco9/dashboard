@@ -1,10 +1,12 @@
 .layoutRoot {
   min-height: 100vh;
   background: var(--surface);
+  padding-top: 4.5rem;
 }
 
 .content {
-  margin-top: 3.5rem;
+  /* Reserve header height via parent padding to avoid margin collapse */
+  margin-top: 0;
   max-width: 64rem;
   margin-left: auto;
   margin-right: auto;
