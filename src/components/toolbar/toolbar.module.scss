@@ -1,0 +1,217 @@
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.count {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--background);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--background);
+  color: var(--text);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--card-surface);
+  }
+
+  &:hover {
+    border-color: var(--primary);
+    background: var(--card-surface);
+  }
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+}
+
+.selectContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  z-index: 10;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  border-radius: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selectContainer:hover .selectIcon {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.select {
+  width: 100%;
+  padding: 0.875rem 3rem 0.875rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--background);
+  color: var(--text);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: var(--card-surface);
+  }
+
+  &:hover {
+    border-color: var(--primary);
+    background: var(--card-surface);
+  }
+}
+
+
+.selectActive {
+  border-color: var(--primary) !important;
+  background: var(--card-surface) !important;
+  box-shadow: 0 0 0 1px var(--primary) !important;
+}
+
+.clearButton {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: none;
+  border-radius: 0.5rem;
+  color: #dc2626;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #dc2626;
+    transform: translateY(-50%) scale(1.15);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+.searchContainer .clearButton {
+  right: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .controls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+  }
+
+    .searchContainer {
+      flex: 1;
+      max-width: 20rem;
+    }
+
+  .selectContainer {
+    width: 10rem;
+    flex-shrink: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .toolbar {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+
+  .controls {
+    flex: 1;
+    max-width: 40rem;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+    .searchContainer {
+      max-width: 18rem;
+    }
+
+    .selectContainer {
+      width: 9rem;
+    }
+}

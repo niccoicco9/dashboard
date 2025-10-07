@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { UserWithRole } from '../../../types/user.types';
 import { userService } from '../../../services/user.service';
 import UserCard from '../user-card/user-card';
 import UserCardSkeleton from '../user-card-skeleton/user-card-skeleton';
 import UserSidePanel from '../user-sidepanel/user-sidepanel';
+import Toolbar from '../../toolbar/toolbar';
 import styles from './user-list.module.scss';
 
 function UserList() {
@@ -12,6 +13,8 @@ function UserList() {
   const [error, setError] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserWithRole | null>(null);
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
+  const [roleFilter, setRoleFilter] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -46,12 +49,28 @@ function UserList() {
     setSelectedUser(null);
   };
 
+  const handleRoleFilter = (role: string) => {
+    setRoleFilter(role);
+  };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  const filteredUsers = useMemo(() => {
+    return users.filter(user => {
+      const matchesRole = roleFilter === 'all' || user.role === roleFilter;
+      const matchesSearch = searchQuery === '' || 
+        user.name.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      return matchesRole && matchesSearch;
+    });
+  }, [users, roleFilter, searchQuery]);
+
   if (loading) {
     return (
       <div className={styles.container}>
-        <div className={styles.headerRow}>
-          <h1 className={styles.title}>Users</h1>
-        </div>
+        <Toolbar onRoleFilter={handleRoleFilter} onSearch={handleSearch} />
         <div className={styles.list}>
           {Array.from({ length: 6 }).map((_, index) => (
             <UserCardSkeleton key={index} />
@@ -72,13 +91,27 @@ function UserList() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.headerRow}>
-        <h1 className={styles.title}>Users ({users.length})</h1>
-      </div>
+      <Toolbar 
+        onRoleFilter={handleRoleFilter} 
+        onSearch={handleSearch}
+        userCount={filteredUsers.length}
+        totalCount={users.length}
+      />
+      
       <div className={styles.list}>
-        {users.map((user) => (
-          <UserCard key={user.id} user={user} onClick={() => handleUserClick(user)} />
-        ))}
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user) => (
+            <UserCard key={user.id} user={user} onClick={() => handleUserClick(user)} />
+          ))
+        ) : (
+          <div className={styles.noResults}>
+            <div className={styles.noResultsIcon}>🔍</div>
+            <h3 className={styles.noResultsTitle}>No users found</h3>
+            <p className={styles.noResultsText}>
+              Try adjusting your search criteria or filters
+            </p>
+          </div>
+        )}
       </div>
       
       <UserSidePanel
