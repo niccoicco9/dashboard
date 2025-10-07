@@ -5,6 +5,7 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/consts/routes.const";
 import { useEffect, useState } from "react";
+import styles from './header.module.scss';
 
 function Header() {
   const navigate = useNavigate();
@@ -27,28 +28,23 @@ function Header() {
   };
   
   return (
-    <div className="fixed top-0 left-0 right-0 bg-white dark:bg-black/90 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 z-50">
-      <div className="max-w-5xl mx-auto px-4 py-3">
-        <div className="flex justify-between items-center">
-          <div
-            className="flex items-center gap-2 cursor-pointer"
-            onClick={navigateToHome}
-          >
-            <img src={logoSource} alt="logo" className="h-10 w-10 dark:invert" />
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-              { HEADER_TITLE }
-            </h2>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              onClick={toggleTheme}
-              icon={isDark ? <SunIcon className="h-5 w-5 text-gray-700 dark:text-gray-200" /> : <MoonIcon className="h-5 w-5 text-gray-700 dark:text-gray-200" />}
-              title={ isDark ? LIGHT_MODE_BUTTON_TEXT : DARK_MODE_BUTTON_TEXT }
-            />
-            </div>
-          </div>
+    <div className={`${styles.header} ${isDark ? styles.dark : ''}`}>
+      <div className={styles.inner}>
+        <div className={styles.brand} onClick={navigateToHome}>
+          <img src={logoSource} alt="logo" className={`${styles.logo} ${isDark ? styles.logoDark : ''}`} />
+          <h2 className={`${styles.title} ${isDark ? styles.titleDark : ''}`}>
+            { HEADER_TITLE }
+          </h2>
+        </div>
+        <div className={styles.actions}>
+          <Button
+            onClick={toggleTheme}
+            icon={isDark ? <SunIcon /> : <MoonIcon />}
+            title={ isDark ? LIGHT_MODE_BUTTON_TEXT : DARK_MODE_BUTTON_TEXT }
+          />
         </div>
       </div>
+    </div>
   );
 }
 

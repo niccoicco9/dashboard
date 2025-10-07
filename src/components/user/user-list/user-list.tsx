@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { UserWithRole } from '../../../types/user.types';
 import { userService } from '../../../services/user.service';
 import UserCard from '../user-card/user-card';
+import styles from './user-list.module.scss';
 
 function UserList() {
   const [users, setUsers] = useState<UserWithRole[]>([]);
@@ -28,36 +29,28 @@ function UserList() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
-        <span className="ml-2 text-gray-600 dark:text-gray-300">Loading users...</span>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '3rem 0' }}>
+        <div style={{ width: 32, height: 32, borderRadius: '9999px', border: '2px solid #111827', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }} />
+        <span style={{ marginLeft: 8, color: '#4b5563' }}>Loading users...</span>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center py-12">
-        <div className="text-red-600 dark:text-red-400 mb-2">⚠️ {error}</div>
-        <button 
-          onClick={() => window.location.reload()}
-          className="text-blue-600 dark:text-blue-400 hover:underline"
-        >
-          Try again
-        </button>
+      <div style={{ textAlign: 'center', padding: '3rem 0' }}>
+        <div style={{ color: '#dc2626', marginBottom: '0.5rem' }}>⚠️ {error}</div>
+        <button onClick={() => window.location.reload()} style={{ color: '#2563eb', textDecoration: 'underline' }}>Try again</button>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Users ({users.length})
-        </h1>
+    <div className={styles.container}>
+      <div className={styles.headerRow}>
+        <h1 className={styles.title}>Users ({users.length})</h1>
       </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className={styles.list}>
         {users.map((user) => (
           <UserCard key={user.id} user={user} />
         ))}

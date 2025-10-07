@@ -1,0 +1,11 @@
+@use "../tokens/typography" as type;
+
+html {
+  font-family: type.$font-sans;
+}
+
+/* Color scheme hint to browsers */
+:root {
+  color-scheme: light dark;
+}
+

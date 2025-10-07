@@ -1,7 +1,1 @@
-@import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* App root backgrounds for light/dark */
-:root {
-  color-scheme: light dark;
-}
+:root { color-scheme: light dark; }
