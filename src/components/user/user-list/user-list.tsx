@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { UserWithRole } from '../../../types/user.types';
 import { userService } from '../../../services/user.service';
 import UserCard from '../user-card/user-card';
+import UserCardSkeleton from '../user-card-skeleton/user-card-skeleton';
 import UserSidePanel from '../user-sidepanel/user-sidepanel';
 import styles from './user-list.module.scss';
 
@@ -17,7 +18,12 @@ function UserList() {
       try {
         setLoading(true);
         setError(null);
-        const usersData = await userService.getUsers();
+        
+        const [usersData] = await Promise.all([
+          userService.getUsers(),
+          new Promise(resolve => setTimeout(resolve, 1000))
+        ]);
+        
         setUsers(usersData);
       } catch (err) {
         setError('Failed to load users');
@@ -42,9 +48,15 @@ function UserList() {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '3rem 0' }}>
-        <div style={{ width: 32, height: 32, borderRadius: '9999px', border: '2px solid #111827', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }} />
-        <span style={{ marginLeft: 8, color: '#4b5563' }}>Loading users...</span>
+      <div className={styles.container}>
+        <div className={styles.headerRow}>
+          <h1 className={styles.title}>Users</h1>
+        </div>
+        <div className={styles.list}>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <UserCardSkeleton key={index} />
+          ))}
+        </div>
       </div>
     );
   }
