@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import GlobalErrorHandler from './global-error-handler';
 import { errorBus } from '@/lib/error-bus';
@@ -22,28 +22,28 @@ describe('GlobalErrorHandler', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('renders error modal when an error is emitted', () => {
+  it('renders error modal when an error is emitted', async () => {
     render(<GlobalErrorHandler />);
 
     errorBus.emitMessage('Test error occurred', 'network');
 
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByRole('dialog')).toBeInTheDocument());
     expect(screen.getByText('Something went wrong')).toBeInTheDocument();
     expect(screen.getByText('Test error occurred')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /try again/i })).toBeInTheDocument();
   });
 
-  it('calls onRetry and closes when clicking Try Again', () => {
+  it('calls onRetry and closes when clicking Try Again', async () => {
     const onRetry = vi.fn();
     render(<GlobalErrorHandler onRetry={onRetry} />);
 
     errorBus.emitMessage('Retryable error', 'server');
 
-    const button = screen.getByRole('button', { name: /try again/i });
+    const button = await screen.findByRole('button', { name: /try again/i });
     fireEvent.click(button);
 
-    expect(onRetry).toHaveBeenCalledTimes(1);
-    expect(screen.queryByRole('dialog')).toBeNull();
+    await waitFor(() => expect(onRetry).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
   });
 });
 

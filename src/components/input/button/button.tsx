@@ -39,6 +39,7 @@ function Button({
 
   return (
     <button
+      type="button"
       className={composed}
       onClick={() => {
         if (disableHoverOnClick) setNoHover(true);

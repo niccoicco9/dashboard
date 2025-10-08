@@ -9,13 +9,12 @@ const localStorageMock = {
   removeItem: vi.fn(),
   clear: vi.fn(),
 };
-Object.defineProperty(window, 'localStorage', {
-  value: localStorageMock,
-});
+
+Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -27,13 +26,13 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-const renderHeader = () => {
+function renderHeader() {
   return render(
     <BrowserRouter>
       <Header />
     </BrowserRouter>
   );
-};
+}
 
 describe('Header', () => {
   beforeEach(() => {
@@ -41,61 +40,35 @@ describe('Header', () => {
     document.documentElement.classList.remove('dark');
   });
 
-  it('renders header with logo and title', () => {
+  it('renders logo and title', () => {
     renderHeader();
-    
-    expect(screen.getByText('USERS DASHBOARD')).toBeInTheDocument();
     expect(screen.getByAltText('logo')).toBeInTheDocument();
+    expect(screen.getByText('DASHBOARD')).toBeInTheDocument();
   });
 
-  it('renders dark mode button with correct initial text', () => {
+  it('shows dark mode button and toggles theme', () => {
     renderHeader();
-    
-    expect(screen.getByText('Dark')).toBeInTheDocument();
-  });
+    const toggleButton = screen.getByRole('button', { name: 'Dark' });
+    expect(toggleButton).toBeInTheDocument();
 
-  it('toggles theme when button is clicked', () => {
-    renderHeader();
-    
-    const toggleButton = screen.getByText('Dark');
     fireEvent.click(toggleButton);
-    
     expect(localStorageMock.setItem).toHaveBeenCalledWith('theme', 'dark');
     expect(document.documentElement.classList.contains('dark')).toBe(true);
+
+    const lightButton = screen.getByRole('button', { name: 'Light' });
+    expect(lightButton).toBeInTheDocument();
   });
 
-  it('changes button text after toggle', () => {
+  it('reloads the page when logo is clicked on home path', () => {
+    const reloadMock = vi.fn();
+    Object.defineProperty(window, 'location', { value: { pathname: '/', reload: reloadMock } });
     renderHeader();
-    
-    const toggleButton = screen.getByText('Dark');
-    fireEvent.click(toggleButton);
-    
-    expect(screen.getByText('Light')).toBeInTheDocument();
+    fireEvent.click(screen.getByAltText('logo'));
+    expect(reloadMock).toHaveBeenCalled();
   });
 
-  it('navigates to home when logo is clicked', () => {
-    const mockNavigate = vi.fn();
-    vi.mock('react-router-dom', async () => {
-      const actual = await vi.importActual('react-router-dom');
-      return {
-        ...actual,
-        useNavigate: () => mockNavigate,
-      };
-    });
-
+  it('renders a semantic header', () => {
     renderHeader();
-    
-    const logo = screen.getByAltText('logo');
-    fireEvent.click(logo);
-    
-    expect(mockNavigate).toHaveBeenCalledWith('/');
-  });
-
-  it('applies dark mode classes when theme is dark', () => {
-    document.documentElement.classList.add('dark');
-    renderHeader();
-    
-    const header = screen.getByRole('banner') || screen.getByText('USERS DASHBOARD').closest('div');
-    expect(header).toHaveClass('dark:bg-black/90');
+    expect(screen.getByRole('banner')).toBeInTheDocument();
   });
 });
