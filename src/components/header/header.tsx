@@ -4,17 +4,14 @@ import Button from "../input/button/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/consts/routes.const";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from './header.module.scss';
+import { useTheme } from '@/hooks/useTheme';
 
 function Header() {
   const navigate = useNavigate();
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
   const [isClicked, setIsClicked] = useState(false);
-
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains("dark"));
-  }, []);
 
   const navigateToHome = () => {
     setIsClicked(true);
@@ -27,16 +24,9 @@ function Header() {
     }
   };
 
-  const toggleTheme = () => {
-    const nextIsDark = !isDark;
-    setIsDark(nextIsDark);
-
-    document.documentElement.classList.toggle("dark", nextIsDark);
-    localStorage.setItem("theme", nextIsDark ? "dark" : "light");
-  };
   
   return (
-    <div className={`${styles.header} ${isDark ? styles.dark : ''}`}>
+    <header className={`${styles.header} ${isDark ? styles.dark : ''}`}>
       <div className={styles.inner}>
         <div className={`${styles.brand} ${isClicked ? styles.clicked : ''}`} onClick={navigateToHome} title="Click to refresh page">
           <img src={logoSource} alt="logo" className={`${styles.logo} ${isDark ? styles.logoDark : ''}`} />
@@ -53,7 +43,7 @@ function Header() {
           />
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
