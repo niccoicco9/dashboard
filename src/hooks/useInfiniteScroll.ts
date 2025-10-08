@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { UserWithRole } from '../types/user.types';
-import { userService } from '../services/user.service';
+import { UserWithRole } from '@/types/user.types';
+import { userService } from '@/services/user.service';
 
 interface UseInfiniteScrollReturn {
   users: UserWithRole[];
