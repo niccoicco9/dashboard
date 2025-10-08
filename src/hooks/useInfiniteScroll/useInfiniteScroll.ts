@@ -8,7 +8,7 @@ interface UseInfiniteScrollReturn {
   error: string | null;
   hasMore: boolean;
   loadMore: () => void;
-  total: number;
+  total: number | undefined;
   isLoadingMore: boolean;
 }
 
@@ -18,7 +18,7 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState<number | undefined>(undefined);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [hasInitialized, setHasInitialized] = useState(false);
 
@@ -40,7 +40,7 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
       }
       
       setHasMore(result.hasMore);
-      setTotal(result.total ?? 0);
+      setTotal(result.total);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch users');
     } finally {

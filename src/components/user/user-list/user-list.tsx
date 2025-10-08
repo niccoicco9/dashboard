@@ -78,7 +78,7 @@ function UserList() {
           onRoleFilter={handleRoleFilter} 
           onSearch={handleSearch}
           userCount={filteredUsers.length}
-          totalCount={total === -1 ? undefined : total}
+          totalCount={total}
         />
       
       <div className={styles.list}>
