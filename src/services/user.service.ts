@@ -1,33 +1,16 @@
 import axios from 'axios';
 import { User, UserWithRole } from '@/types/user.types';
 import { errorBus } from '@/lib/error-bus';
-import { API_BASE_URL, RANDOM_USER_API, DEBUG_API_ERRORS } from '@/consts/api.const';
+import { API_BASE_URL, RANDOM_USER_API } from '@/consts/api.const';
 
 const roles: Array<'admin' | 'user' | 'moderator'> = ['admin', 'user', 'moderator'];
 const statuses: Array<'active' | 'inactive' | 'pending'> = ['active', 'inactive', 'pending'];
 
-const shouldSimulateError = (page: number): boolean => {
-  if (!DEBUG_API_ERRORS.ENABLE_ERRORS) return false;
-  if (DEBUG_API_ERRORS.ERROR_PAGE === 0) return false;
-  return page === DEBUG_API_ERRORS.ERROR_PAGE;
-};
+ 
 
 export const userService = {
   async getUsers(page: number = 1, limit: number = 12): Promise<{ users: UserWithRole[], hasMore: boolean, total: number }> {
     try {
-      if (shouldSimulateError(page)) {
-        switch (DEBUG_API_ERRORS.ERROR_TYPE) {
-          case 'network':
-            throw new Error('Network Error: Failed to fetch users');
-          case 'timeout':
-            throw new Error('Timeout Error: Request timed out');
-          case 'server':
-            throw new Error('Server Error: Internal server error');
-          default:
-            throw new Error('Unknown Error: Unexpected error occurred');
-        }
-      }
-      
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       const response = await axios.get(`${RANDOM_USER_API}?results=${limit}&page=${page}&seed=users`);
