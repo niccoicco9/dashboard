@@ -45,6 +45,17 @@
   align-items: center;
   gap: 1rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+  
+  &.clicked {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
 }
 
 .actions { display: flex; align-items: center; gap: 0.5rem; }

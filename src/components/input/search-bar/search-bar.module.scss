@@ -39,6 +39,16 @@
   &::placeholder {
     color: var(--text-muted);
   }
+
+  // Disable browser autocomplete styling
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--background) inset !important;
+    -webkit-text-fill-color: var(--text) !important;
+    background: var(--background) !important;
+  }
 }
 
 .clearButton {

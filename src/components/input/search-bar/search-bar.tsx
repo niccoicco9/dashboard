@@ -35,6 +35,7 @@ function SearchBar({ onSearch, value = '' }: SearchBarProps) {
         value={searchQuery}
         onChange={handleSearchChange}
         className={styles.searchInput}
+        autoComplete="off"
       />
       {searchQuery && (
         <button onClick={clearSearch} className={styles.clearButton}>
