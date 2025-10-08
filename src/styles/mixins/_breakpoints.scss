@@ -6,7 +6,7 @@ $breakpoints: (
   xxl: 1536px,
 );
 
-@mixin respond($point) {
+@mixin up($point) {
   $size: map-get($breakpoints, $point);
   @media (min-width: $size) {
     @content;

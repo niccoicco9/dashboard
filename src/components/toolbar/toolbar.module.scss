@@ -1,3 +1,7 @@
+@use '../../styles/mixins/breakpoints' as bp;
+@use '../../styles/tokens/spacing' as s;
+@use '../../styles/tokens/typography' as t;
+
 .toolbar {
   position: fixed;
   top: 5.8rem;
@@ -17,10 +21,10 @@
 .toolbarInner {
   max-width: 64rem;
   margin: 0 auto;
-  padding: 1rem 1rem;
+  padding: s.$space-md s.$space-md;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: s.$space-md;
 }
 
 .header {
@@ -32,26 +36,26 @@
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: s.$space-lg;
   padding: 0;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: t.$text-2xl;
   font-weight: 700;
   color: var(--text);
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: s.$space-sm;
 }
 
 .count {
-  font-size: 1rem;
+  font-size: t.$text-sm;
   font-weight: 500;
   color: var(--text-muted);
   background: var(--background);
-  padding: 0.25rem 0.75rem;
+  padding: s.$space-xxs s.$space-sm;
   border-radius: 1rem;
   border: 1px solid var(--border);
 }
@@ -198,7 +202,7 @@
   right: 0.5rem;
 }
 
-@media (min-width: 768px) {
+@include bp.up(md) {
   .toolbarInner {
     flex-direction: row;
     align-items: center;
@@ -222,7 +226,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    gap: 1.5rem;
+    gap: s.$space-xl;
   }
 
   .searchContainer {
@@ -236,7 +240,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@include bp.up(lg) {
   .toolbarInner {
     flex-direction: row;
     align-items: center;

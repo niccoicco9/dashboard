@@ -1,3 +1,7 @@
+@use '../../../styles/mixins/breakpoints' as bp;
+@use '../../../styles/tokens/spacing' as s;
+@use '../../../styles/tokens/typography' as t;
+
 .searchContainer {
   position: relative;
   display: flex;
@@ -17,12 +21,12 @@
 
 .searchInput {
   width: 100%;
-  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  padding: s.$space-md s.$space-md s.$space-md calc(s.$space-xl + s.$space-sm);
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   background: var(--background);
   color: var(--text);
-  font-size: 0.875rem;
+  font-size: t.$text-sm;
   transition: all 0.2s ease;
 
   &:focus {
@@ -58,7 +62,7 @@
 
 .clearButton {
   position: absolute;
-  right: 0.5rem;
+  right: s.$space-xs;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -85,14 +89,14 @@
   }
 }
 
-@media (min-width: 768px) {
+@include bp.up(md) {
   .searchContainer {
     flex: 1;
     max-width: 20rem;
   }
 }
 
-@media (min-width: 1024px) {
+@include bp.up(lg) {
   .searchContainer {
     max-width: 18rem;
   }

@@ -1,3 +1,7 @@
+@use '@/styles/mixins/breakpoints' as bp;
+@use '@/styles/tokens/colors' as c;
+@use '@/styles/tokens/spacing' as s;
+
 .header {
   position: fixed;
   top: 0;
@@ -7,7 +11,7 @@
   backdrop-filter: blur(6px);
   background: var(--header-surface);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 1px 0 rgba(c.$color-black,0.1);
 }
 
 .header.dark {
@@ -34,7 +38,7 @@
 .inner {
   max-width: 64rem; 
   margin: 0 auto;
-  padding: 0.75rem 1rem;
+  padding: s.$space-sm s.$space-md;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -58,7 +62,7 @@
   }
 }
 
-.actions { display: flex; align-items: center; gap: 0.5rem; }
+.actions { display: flex; align-items: center; gap: s.$space-xs; }
 
 .accentTitle {
   color: var(--text);

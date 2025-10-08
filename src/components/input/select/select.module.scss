@@ -1,3 +1,7 @@
+@use '../../../styles/mixins/breakpoints' as bp;
+@use '../../../styles/tokens/spacing' as s;
+@use '../../../styles/tokens/typography' as t;
+
 .selectContainer {
   position: relative;
   display: flex;
@@ -6,7 +10,7 @@
 
 .selectIcon {
   position: absolute;
-  right: 0.5rem;
+  right: s.$space-xs;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
@@ -29,12 +33,12 @@
 
 .select {
   width: 100%;
-  padding: 0.875rem 3rem 0.875rem 1rem;
+  padding: s.$space-md calc(s.$space-2xl + s.$space-xs) s.$space-md s.$space-md;
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   background: var(--background);
   color: var(--text);
-  font-size: 0.875rem;
+  font-size: t.$text-sm;
   transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
   appearance: none;
@@ -59,7 +63,7 @@
 
 .clearButton {
   position: absolute;
-  right: 0.5rem;
+  right: s.$space-xs;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -86,14 +90,14 @@
   }
 }
 
-@media (min-width: 768px) {
+@include bp.up(md) {
   .selectContainer {
     width: 10rem;
     flex-shrink: 0;
   }
 }
 
-@media (min-width: 1024px) {
+@include bp.up(lg) {
   .selectContainer {
     width: 9rem;
   }
