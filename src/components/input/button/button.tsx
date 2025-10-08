@@ -1,10 +1,12 @@
 type ButtonVariant = "outlined" | "contained";
+type ButtonTone = "accent" | "primary";
 
 interface ButtonProps {
   onClick: () => void;
   title?: string;
   icon?: React.ReactNode;
   variant?: ButtonVariant;
+  tone?: ButtonTone;
   disableHoverOnClick?: boolean;
 }
 
@@ -16,19 +18,28 @@ function Button({
   onClick,
   icon,
   variant = "outlined",
+  tone = "accent",
   disableHoverOnClick = false,
 }: Readonly<ButtonProps>) {
   const [noHover, setNoHover] = useState(false);
   const baseClassName = styles.button;
 
-  const variantStyles = {
-    outlined: styles.outlined,
-    contained: styles.contained,
+  const toneStyles = {
+    outlined: {
+      accent: styles.outlined,
+      primary: styles.outlinedPrimary,
+    },
+    contained: {
+      accent: styles.contained,
+      primary: styles.containedPrimary,
+    },
   } as const;
+
+  const composed = `${baseClassName} ${toneStyles[variant][tone]} ${disableHoverOnClick && noHover ? styles.noHover : ''}`;
 
   return (
     <button
-      className={`${baseClassName} ${variantStyles[variant]} ${disableHoverOnClick && noHover ? styles.noHover : ''}`}
+      className={composed}
       onClick={() => {
         if (disableHoverOnClick) setNoHover(true);
         onClick();

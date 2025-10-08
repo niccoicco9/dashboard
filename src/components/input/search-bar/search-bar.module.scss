@@ -51,6 +51,12 @@
   }
 }
 
+.searchActive {
+  border-color: var(--primary) !important;
+  background: var(--card-surface) !important;
+  box-shadow: 0 0 0 1px var(--primary) !important;
+}
+
 .clearButton {
   position: absolute;
   right: 0.5rem;

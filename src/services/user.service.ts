@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { User, UserWithRole } from '../types/user.types';
+import { errorBus } from '../lib/error-bus';
 
 const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
 const RANDOM_USER_API = 'https://randomuser.me/api';
@@ -7,9 +8,34 @@ const RANDOM_USER_API = 'https://randomuser.me/api';
 const roles: Array<'admin' | 'user' | 'moderator'> = ['admin', 'user', 'moderator'];
 const statuses: Array<'active' | 'inactive' | 'pending'> = ['active', 'inactive', 'pending'];
 
+const DEBUG_API_ERRORS = {
+  ENABLE_ERRORS: false,
+  ERROR_TYPE: 'network',
+  ERROR_PAGE: 2,
+};
+
+const shouldSimulateError = (page: number): boolean => {
+  if (!DEBUG_API_ERRORS.ENABLE_ERRORS) return false;
+  if (DEBUG_API_ERRORS.ERROR_PAGE === 0) return false;
+  return page === DEBUG_API_ERRORS.ERROR_PAGE;
+};
+
 export const userService = {
   async getUsers(page: number = 1, limit: number = 12): Promise<{ users: UserWithRole[], hasMore: boolean, total: number }> {
     try {
+      if (shouldSimulateError(page)) {
+        switch (DEBUG_API_ERRORS.ERROR_TYPE) {
+          case 'network':
+            throw new Error('Network Error: Failed to fetch users');
+          case 'timeout':
+            throw new Error('Timeout Error: Request timed out');
+          case 'server':
+            throw new Error('Server Error: Internal server error');
+          default:
+            throw new Error('Unknown Error: Unexpected error occurred');
+        }
+      }
+      
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       const response = await axios.get(`${RANDOM_USER_API}?results=${limit}&page=${page}&seed=users`);
@@ -31,9 +57,18 @@ export const userService = {
         hasMore,
         total: hasMore ? -1 : 100
       };
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      throw new Error('Failed to fetch users');
+    } catch (error: any) {
+      const message: string = error?.message || 'Failed to fetch users';
+      const lowered = message.toLowerCase();
+      const type = lowered.includes('network')
+        ? 'network'
+        : lowered.includes('timeout')
+        ? 'timeout'
+        : lowered.includes('server')
+        ? 'server'
+        : 'unknown';
+      errorBus.emitMessage(message, type);
+      throw new Error(message);
     }
   },
 
@@ -48,9 +83,10 @@ export const userService = {
         status: statuses[id % statuses.length] as 'active' | 'inactive' | 'pending',
         avatar: `https://i.pravatar.cc/150?img=${user.id}`,
       };
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      throw new Error('Failed to fetch user');
+    } catch (error: any) {
+      const message: string = error?.message || 'Failed to fetch user';
+      errorBus.emitMessage(message, 'unknown');
+      throw new Error(message);
     }
   },
 };

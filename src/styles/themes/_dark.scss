@@ -4,14 +4,16 @@
   .dark {
     --surface: #0b0b0c;
     --surface-muted: #111827;
-    --surface-elevated: #141416; /* slightly lighter for cards */
-    --header-surface: rgba(20, 20, 22, 0.8); /* softer than body, lighter and translucent */
-    --card-surface: #1a1b1e; /* distinct card background */
+    --surface-elevated: #141416;
+    --header-surface: rgba(20, 20, 22, 0.8);
+    --card-surface: #1a1b1e;
     --text: #e5e7eb;
     --text-muted: #9ca3af;
     --border: #27272a;
-    --accent: #a78bfa; /* violet-400 */
+    --accent: #a78bfa;
     --accent-contrast: #0b0b0c;
+    --primary: #60a5fa;
+    --primary-contrast: #0b0b0c;
   }
 }
 

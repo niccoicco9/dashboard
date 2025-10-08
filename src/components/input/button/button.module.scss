@@ -16,19 +16,16 @@
   color: var(--text);
   background: transparent;
 }
+.outlined:hover { color: #1f2937; background: #f9fafb; }
 
-.outlined:hover {
-  color: #1f2937;
-  background: #f9fafb;
-}
+.contained { background: var(--text); color: var(--surface); border: 1px solid var(--text); }
+.contained:hover { filter: brightness(0.9); }
 
-.contained {
-  background: var(--accent);
-  color: var(--accent-contrast);
-  border: 1px solid var(--accent);
-}
+.outlinedPrimary { border: 1px solid var(--primary); color: var(--primary); background: transparent; }
+.outlinedPrimary:hover { background: rgba(59, 130, 246, 0.08); }
 
-.contained:hover { filter: brightness(0.95); }
+.containedPrimary { background: var(--primary); color: var(--primary-contrast); border: 1px solid var(--primary); }
+.containedPrimary:hover { filter: brightness(0.95); }
 
 /* Disable hover visuals while active */
 .noHover:hover { filter: none; background: inherit; color: inherit; }

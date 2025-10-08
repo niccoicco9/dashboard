@@ -34,7 +34,7 @@ function SearchBar({ onSearch, value = '' }: SearchBarProps) {
         placeholder={SEARCH_PLACEHOLDER}
         value={searchQuery}
         onChange={handleSearchChange}
-        className={styles.searchInput}
+        className={`${styles.searchInput} ${searchQuery ? styles.searchActive : ''}`}
         autoComplete="off"
       />
       {searchQuery && (

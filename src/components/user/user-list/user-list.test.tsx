@@ -73,7 +73,11 @@ describe('UserList', () => {
   });
 
   it('renders users when data is loaded', async () => {
-    vi.mocked(userService.getUsers).mockResolvedValue(mockUsers);
+    vi.mocked(userService.getUsers).mockResolvedValue({
+      users: mockUsers,
+      hasMore: false,
+      total: 2
+    });
 
     render(<UserList />);
     
@@ -100,7 +104,11 @@ describe('UserList', () => {
   });
 
   it('displays correct user count', async () => {
-    vi.mocked(userService.getUsers).mockResolvedValue(mockUsers);
+    vi.mocked(userService.getUsers).mockResolvedValue({
+      users: mockUsers,
+      hasMore: false,
+      total: 2
+    });
 
     render(<UserList />);
     
@@ -110,7 +118,11 @@ describe('UserList', () => {
   });
 
   it('renders user cards in grid layout', async () => {
-    vi.mocked(userService.getUsers).mockResolvedValue(mockUsers);
+    vi.mocked(userService.getUsers).mockResolvedValue({
+      users: mockUsers,
+      hasMore: false,
+      total: 2
+    });
 
     render(<UserList />);
     
@@ -121,7 +133,11 @@ describe('UserList', () => {
   });
 
   it('handles empty user list', async () => {
-    vi.mocked(userService.getUsers).mockResolvedValue([]);
+    vi.mocked(userService.getUsers).mockResolvedValue({
+      users: [],
+      hasMore: false,
+      total: 0
+    });
 
     render(<UserList />);
     
@@ -131,7 +147,11 @@ describe('UserList', () => {
   });
 
   it('calls userService.getUsers on mount', () => {
-    vi.mocked(userService.getUsers).mockResolvedValue(mockUsers);
+    vi.mocked(userService.getUsers).mockResolvedValue({
+      users: mockUsers,
+      hasMore: false,
+      total: 2
+    });
 
     render(<UserList />);
     

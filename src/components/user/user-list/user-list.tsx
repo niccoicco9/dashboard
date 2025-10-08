@@ -66,9 +66,8 @@ function UserList() {
 
   if (error) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem 0' }}>
-        <div style={{ color: '#dc2626', marginBottom: '0.5rem' }}>⚠️ {error}</div>
-        <button onClick={() => window.location.reload()} style={{ color: '#2563eb', textDecoration: 'underline' }}>Try again</button>
+      <div className={styles.container}>
+        {}
       </div>
     );
   }
