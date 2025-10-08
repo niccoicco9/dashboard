@@ -199,6 +199,25 @@
 }
 
 @media (min-width: 768px) {
+  .toolbarInner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+  }
+
   .controls {
     flex-direction: row;
     align-items: center;
