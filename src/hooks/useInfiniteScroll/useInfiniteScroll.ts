@@ -40,7 +40,7 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
       }
       
       setHasMore(result.hasMore);
-      setTotal(result.total);
+      setTotal(result.total ?? 0);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch users');
     } finally {

@@ -1,47 +1,42 @@
-import axios from 'axios';
+import { apiClient } from './http/api-client';
 import { User, UserWithRole } from '@/types/user.types';
 import { errorBus } from '@/lib/error-bus';
 import { API_BASE_URL, RANDOM_USER_API } from '@/consts/api.const';
+import { mapRandomUser, RandomUserApiUser } from './utils/user-mappers';
+import { deriveErrorType } from './utils/error-utils';
 
 const roles: Array<'admin' | 'user' | 'moderator'> = ['admin', 'user', 'moderator'];
 const statuses: Array<'active' | 'inactive' | 'pending'> = ['active', 'inactive', 'pending'];
 
- 
+const DEFAULT_LIMIT = 12;
+const TOTAL_PAGES = 10;
 
 export const userService = {
-  async getUsers(page: number = 1, limit: number = 12): Promise<{ users: UserWithRole[], hasMore: boolean, total: number }> {
+  async getUsers(page: number = 1, limit: number = DEFAULT_LIMIT, signal?: AbortSignal): Promise<{ users: UserWithRole[], hasMore: boolean, total: number | undefined }> {
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const response = await axios.get(`${RANDOM_USER_API}?results=${limit}&page=${page}&seed=users`);
+      const response = await apiClient.get<{ results: RandomUserApiUser[] }>(
+        `${RANDOM_USER_API}?results=${limit}&page=${page}&seed=users`,
+        { signal }
+      );
       const randomUsers = response.data.results;
       
-      const usersWithRoles = randomUsers.map((user: any, index: number) => ({
-        id: (page - 1) * limit + index + 1,
-        name: `${user.name.first} ${user.name.last}`,
-        email: user.email,
-        role: roles[index % roles.length] as 'admin' | 'user' | 'moderator',
-        status: statuses[index % statuses.length] as 'active' | 'inactive' | 'pending',
-        avatar: user.picture.large,
-      }));
+      const usersWithRoles = randomUsers.map((user, index) =>
+        mapRandomUser(user, index, page, limit)
+      );
       
-      const hasMore = page < 10;
+      const hasMore = page < TOTAL_PAGES;
       
       return {
         users: usersWithRoles,
         hasMore,
-        total: hasMore ? -1 : 100
+        total: hasMore ? undefined : TOTAL_PAGES * limit
       };
     } catch (error: any) {
+      if (error?.name === 'CanceledError' || error?.code === 'ERR_CANCELED') {
+        throw error;
+      }
       const message: string = error?.message || 'Failed to fetch users';
-      const lowered = message.toLowerCase();
-      const type = lowered.includes('network')
-        ? 'network'
-        : lowered.includes('timeout')
-        ? 'timeout'
-        : lowered.includes('server')
-        ? 'server'
-        : 'unknown';
+      const type = deriveErrorType(message);
       errorBus.emitMessage(message, type);
       throw new Error(message);
     }
@@ -49,13 +44,13 @@ export const userService = {
 
   async getUserById(id: number): Promise<UserWithRole> {
     try {
-      const response = await axios.get<User>(`${API_BASE_URL}/users/${id}`);
+      const response = await apiClient.get<User>(`${API_BASE_URL}/users/${id}`);
       const user = response.data;
       
       return {
         ...user,
-        role: roles[id % roles.length] as 'admin' | 'user' | 'moderator',
-        status: statuses[id % statuses.length] as 'active' | 'inactive' | 'pending',
+        role: roles[id % roles.length],
+        status: statuses[id % statuses.length],
         avatar: `https://i.pravatar.cc/150?img=${user.id}`,
       };
     } catch (error: any) {
