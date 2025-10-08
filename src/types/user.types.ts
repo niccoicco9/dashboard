@@ -23,7 +23,13 @@ export interface User {
 }
 
 export interface UserWithRole extends User {
-  role: 'admin' | 'user' | 'moderator';
-  status: 'active' | 'inactive' | 'pending';
+  role: UserRole;
+  status: UserStatus;
   avatar: string;
 }
+
+export type UserRole = 'admin' | 'user' | 'moderator';
+export type UserStatus = 'active' | 'inactive' | 'pending';
+
+export const USER_ROLES: readonly UserRole[] = ['admin', 'user', 'moderator'] as const;
+export const USER_STATUSES: readonly UserStatus[] = ['active', 'inactive', 'pending'] as const;

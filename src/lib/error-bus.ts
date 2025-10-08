@@ -25,4 +25,12 @@ class ErrorBus {
   }
 }
 
+export function getErrorTypeFromMessage(message: string): GlobalErrorType {
+  const lowered = message.toLowerCase();
+  if (lowered.includes('network')) return 'network';
+  if (lowered.includes('timeout')) return 'timeout';
+  if (lowered.includes('server')) return 'server';
+  return 'unknown';
+}
+
 export const errorBus = new ErrorBus();
