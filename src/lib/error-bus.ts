@@ -7,7 +7,6 @@ export interface GlobalErrorEvent {
   time: number;
 }
 
-// Very small pub/sub utility for app-wide error events
 class ErrorBus {
   private listeners: Set<(error: GlobalErrorEvent | null) => void> = new Set();
 

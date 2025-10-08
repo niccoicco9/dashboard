@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/consts/routes.const";
 import { useState } from "react";
 import styles from './header.module.scss';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/hooks/useTheme/useTheme';
 
 function Header() {
   const navigate = useNavigate();

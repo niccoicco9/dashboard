@@ -3,12 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 import Layout from './layout';
 
-// Mock the Header component
 vi.mock('../header/header', () => ({
   default: () => <div data-testid="header">Header Component</div>,
 }));
 
-// Mock the Outlet component
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
@@ -78,7 +76,6 @@ describe('Layout', () => {
     expect(container).toContainElement(header);
     expect(container).toContainElement(outlet);
     
-    // Header should come before outlet
     expect(container!.children[0]).toBe(header);
   });
 });

@@ -34,24 +34,19 @@ export default Badge;
 
 function getIcon(props: Readonly<BadgeProps>) {
   if (props.kind === 'role') {
-    switch (props.variant) {
-      case 'admin':
-        return <ShieldCheck className={styles.icon} aria-hidden />;
-      case 'moderator':
-        return <Shield className={styles.icon} aria-hidden />;
-      case 'user':
-        return <UserIcon className={styles.icon} aria-hidden />;
-    }
+    const iconByRole = {
+      admin: <ShieldCheck className={styles.icon} aria-hidden />,
+      moderator: <Shield className={styles.icon} aria-hidden />,
+      user: <UserIcon className={styles.icon} aria-hidden />,
+    } as const;
+    return iconByRole[props.variant] ?? null;
   } else {
-    switch (props.variant) {
-      case 'active':
-        return <CheckCircle2 className={styles.icon} aria-hidden />;
-      case 'inactive':
-        return <XCircle className={styles.icon} aria-hidden />;
-      case 'pending':
-        return <Clock className={styles.icon} aria-hidden />;
-    }
+    const iconByStatus = {
+      active: <CheckCircle2 className={styles.icon} aria-hidden />,
+      inactive: <XCircle className={styles.icon} aria-hidden />,
+      pending: <Clock className={styles.icon} aria-hidden />,
+    } as const;
+    return iconByStatus[props.variant] ?? null;
   }
-  return null;
 }
 

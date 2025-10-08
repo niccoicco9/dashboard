@@ -3,7 +3,7 @@ import styles from './toolbar.module.scss';
 import { TOOLBAR_TITLE } from '@/consts/text.const';
 import SearchBar from '@/components/input/search-bar/search-bar';
 import Select from '@/components/input/select/select';
-import { useScrolled } from '@/hooks/useScrolled';
+import { useScrolled } from '@/hooks/useScrolled/useScrolled';
 
 interface ToolbarProps {
   onRoleFilter: (role: string) => void;

@@ -6,7 +6,7 @@ import UserSidePanel from '@/components/user/user-sidepanel/user-sidepanel';
 import NoUsers from '@/components/user/no-users/no-users';
 import LoadMore from '@/components/user/load-more/load-more';
 import Toolbar from '@/components/toolbar/toolbar';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll/useInfiniteScroll';
 import styles from './user-list.module.scss';
 
 function UserList() {
@@ -36,7 +36,7 @@ function UserList() {
   };
 
   const filteredUsers = useMemo(() => {
-    return users.filter(user => {
+    return users.filter((user: UserWithRole) => {
       const matchesRole = roleFilter === 'all' || user.role === roleFilter;
       const matchesSearch = searchQuery === '' || 
         user.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -83,7 +83,7 @@ function UserList() {
       
       <div className={styles.list}>
         {filteredUsers.length > 0 ? (
-          filteredUsers.map((user) => (
+          filteredUsers.map((user: UserWithRole) => (
             <UserCard key={user.id} user={user} onClick={() => handleUserClick(user)} />
           ))
         ) : (

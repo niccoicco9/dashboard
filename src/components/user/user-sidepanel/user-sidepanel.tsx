@@ -23,7 +23,7 @@ function UserSidePanel({ user, isOpen, onClose }: UserSidePanelProps) {
     setIsClosing(true);
     setTimeout(() => {
       onClose();
-    }, 300); // Match animation duration
+    }, 300);
   };
 
   if (!isOpen || !user) return null;

@@ -4,7 +4,6 @@ import { vi } from 'vitest';
 import UserList from './user-list';
 import { userService } from '../../../services/user.service';
 
-// Mock the user service
 vi.mock('../../../services/user.service');
 
 const mockUsers = [
@@ -161,7 +160,6 @@ describe('UserList', () => {
   it('retry button reloads the page', async () => {
     vi.mocked(userService.getUsers).mockRejectedValue(new Error('API Error'));
     
-    // Mock window.location.reload
     const mockReload = vi.fn();
     Object.defineProperty(window, 'location', {
       value: { reload: mockReload },

@@ -2,8 +2,7 @@ import { renderHook, act } from '@testing-library/react';
 import { vi } from 'vitest';
 import { useInfiniteScroll } from './useInfiniteScroll';
 
-// Mock del servizio
-vi.mock('../services/user.service', () => ({
+vi.mock('@/services/user.service', () => ({
   userService: {
     getUsers: vi.fn()
   }
@@ -22,18 +21,16 @@ describe('useInfiniteScroll', () => {
 
   it('should have loadMore function', () => {
     const { result } = renderHook(() => useInfiniteScroll());
-    
     expect(typeof result.current.loadMore).toBe('function');
   });
 
-  it('should handle loadMore correctly', () => {
+  it('should handle loadMore call', () => {
     const { result } = renderHook(() => useInfiniteScroll());
-    
     act(() => {
       result.current.loadMore();
     });
-    
-    // Verifica che loadMore sia chiamabile
     expect(typeof result.current.loadMore).toBe('function');
   });
 });
+
+

@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import Home from './home';
 
-// Mock the UserList component
 vi.mock('../../components/user/user-list/user-list', () => ({
   default: () => <div data-testid="user-list">UserList Component</div>,
 }));

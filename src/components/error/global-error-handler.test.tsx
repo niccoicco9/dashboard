@@ -3,7 +3,6 @@ import { vi } from 'vitest';
 import GlobalErrorHandler from './global-error-handler';
 import { errorBus } from '@/lib/error-bus';
 
-// Ensure crypto.randomUUID exists in test environment
 beforeAll(() => {
   if (!(globalThis as any).crypto) {
     (globalThis as any).crypto = {} as Crypto;
@@ -15,7 +14,6 @@ beforeAll(() => {
 
 describe('GlobalErrorHandler', () => {
   afterEach(() => {
-    // reset any open error between tests
     errorBus.emit(null);
   });
 
