@@ -1,14 +1,39 @@
 .toolbar {
+  position: fixed;
+  top: 5.8rem;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  backdrop-filter: blur(6px);
+  background: var(--header-surface);
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 0.3s ease;
+  
+  &.scrolled {
+    border-bottom-color: var(--border);
+  }
+}
+
+.toolbarInner {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 0;
+  gap: 1rem;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0;
 }
 
 .title {
@@ -60,7 +85,7 @@
   padding: 0.875rem 1rem 0.875rem 2.75rem;
   border: 1px solid var(--border);
   border-radius: 0.75rem;
-  background: var(--background);
+  background: var(--background) !important;
   color: var(--text);
   font-size: 0.875rem;
   transition: all 0.2s ease;
@@ -114,7 +139,7 @@
   padding: 0.875rem 3rem 0.875rem 1rem;
   border: 1px solid var(--border);
   border-radius: 0.75rem;
-  background: var(--background);
+  background: var(--background) !important;
   color: var(--text);
   font-size: 0.875rem;
   transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
@@ -181,10 +206,10 @@
     gap: 1.5rem;
   }
 
-    .searchContainer {
-      flex: 1;
-      max-width: 20rem;
-    }
+  .searchContainer {
+    flex: 1;
+    max-width: 20rem;
+  }
 
   .selectContainer {
     width: 10rem;
@@ -193,7 +218,7 @@
 }
 
 @media (min-width: 1024px) {
-  .toolbar {
+  .toolbarInner {
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
@@ -207,11 +232,11 @@
     justify-content: flex-end;
   }
 
-    .searchContainer {
-      max-width: 18rem;
-    }
+  .searchContainer {
+    max-width: 18rem;
+  }
 
-    .selectContainer {
-      width: 9rem;
-    }
+  .selectContainer {
+    width: 9rem;
+  }
 }
