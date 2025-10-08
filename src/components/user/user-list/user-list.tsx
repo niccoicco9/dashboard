@@ -45,6 +45,12 @@ function UserList() {
     });
   }, [users, roleFilter, searchQuery]);
 
+  const shouldDisableInfiniteScroll = useMemo(() => {
+    const hasActiveFilters = roleFilter !== 'all' || searchQuery !== '';
+    const hasFewResults = filteredUsers.length < 12;
+    return hasActiveFilters || hasFewResults;
+  }, [roleFilter, searchQuery, filteredUsers.length]);
+
   if (loading) {
     return (
       <div className={styles.container}>
@@ -89,7 +95,7 @@ function UserList() {
       <LoadMore 
         onLoadMore={loadMore}
         loading={loading}
-        hasMore={hasMore}
+        hasMore={hasMore && !shouldDisableInfiniteScroll}
         isLoadingMore={isLoadingMore}
       />
       
