@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { UserWithRole } from '../../../types/user.types';
+import { UserWithRole } from '@/types/user.types';
 import UserCard from './user-card';
 
 const mockUser: UserWithRole = {

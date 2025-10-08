@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
 import styles from './search-bar.module.scss';
-import { SEARCH_PLACEHOLDER } from '../../../consts/text.const';
+import { SEARCH_PLACEHOLDER } from '@/consts/text.const';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;

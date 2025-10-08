@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import GlobalErrorHandler from './global-error-handler';
-import { errorBus } from '../../lib/error-bus';
+import { errorBus } from '@/lib/error-bus';
 
 // Ensure crypto.randomUUID exists in test environment
 beforeAll(() => {

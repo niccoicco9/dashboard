@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import styles from './toolbar.module.scss';
-import { TOOLBAR_TITLE } from '../../consts/text.const';
-import SearchBar from '../input/search-bar/search-bar';
-import Select from '../input/select/select';
+import { TOOLBAR_TITLE } from '@/consts/text.const';
+import SearchBar from '@/components/input/search-bar/search-bar';
+import Select from '@/components/input/select/select';
 
 interface ToolbarProps {
   onRoleFilter: (role: string) => void;

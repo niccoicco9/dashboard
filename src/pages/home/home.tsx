@@ -1,4 +1,4 @@
-import UserList from '../../components/user/user-list/user-list';
+import UserList from '@/components/user/user-list/user-list';
 
 function Home() {
   return (

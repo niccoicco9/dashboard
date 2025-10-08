@@ -1,5 +1,5 @@
 import { Users } from 'lucide-react';
-import { NO_USERS_TITLE, NO_USERS_TEXT } from '../../../consts/text.const';
+import { NO_USERS_TITLE, NO_USERS_TEXT } from '@/consts/text.const';
 import styles from './no-users.module.scss';
 
 function NoUsers() {

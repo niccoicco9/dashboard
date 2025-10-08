@@ -6,7 +6,7 @@ import {
   ADMIN_ROLE_OPTION, 
   MODERATOR_ROLE_OPTION, 
   USER_ROLE_OPTION 
-} from '../../../consts/text.const';
+} from '@/consts/text.const';
 
 interface SelectProps {
   onRoleFilter: (role: string) => void;

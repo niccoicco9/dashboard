@@ -1,4 +1,4 @@
-import { UserWithRole } from '../../../types/user.types';
+import { UserWithRole } from '@/types/user.types';
 import styles from './user-sidepanel.module.scss';
 import Badge from '../badge/badge';
 import { X } from 'lucide-react';

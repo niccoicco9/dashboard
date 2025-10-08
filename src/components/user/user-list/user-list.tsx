@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
-import { UserWithRole } from '../../../types/user.types';
-import UserCard from '../user-card/user-card';
-import UserCardSkeleton from '../user-card-skeleton/user-card-skeleton';
-import UserSidePanel from '../user-sidepanel/user-sidepanel';
-import NoUsers from '../no-users/no-users';
-import LoadMore from '../load-more/load-more';
-import Toolbar from '../../toolbar/toolbar';
-import { useInfiniteScroll } from '../../../hooks/useInfiniteScroll';
+import { UserWithRole } from '@/types/user.types';
+import UserCard from '@/components/user/user-card/user-card';
+import UserCardSkeleton from '@/components/user/user-card-skeleton/user-card-skeleton';
+import UserSidePanel from '@/components/user/user-sidepanel/user-sidepanel';
+import NoUsers from '@/components/user/no-users/no-users';
+import LoadMore from '@/components/user/load-more/load-more';
+import Toolbar from '@/components/toolbar/toolbar';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import styles from './user-list.module.scss';
 
 function UserList() {

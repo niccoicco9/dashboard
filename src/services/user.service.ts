@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { User, UserWithRole } from '../types/user.types';
-import { errorBus } from '../lib/error-bus';
-import { API_BASE_URL, RANDOM_USER_API, DEBUG_API_ERRORS } from '../consts/api.const';
+import { User, UserWithRole } from '@/types/user.types';
+import { errorBus } from '@/lib/error-bus';
+import { API_BASE_URL, RANDOM_USER_API, DEBUG_API_ERRORS } from '@/consts/api.const';
 
 const roles: Array<'admin' | 'user' | 'moderator'> = ['admin', 'user', 'moderator'];
 const statuses: Array<'active' | 'inactive' | 'pending'> = ['active', 'inactive', 'pending'];
