@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import {} from 'react';
 import styles from './toolbar.module.scss';
 import { TOOLBAR_TITLE } from '@/consts/text.const';
 import SearchBar from '@/components/input/search-bar/search-bar';
 import Select from '@/components/input/select/select';
+import { useScrolled } from '@/hooks/useScrolled';
 
 interface ToolbarProps {
   onRoleFilter: (role: string) => void;
@@ -12,20 +13,10 @@ interface ToolbarProps {
 }
 
 function Toolbar({ onRoleFilter, onSearch, userCount, totalCount }: ToolbarProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 10);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const isScrolled = useScrolled(10);
 
   return (
-    <div className={`${styles.toolbar} ${isScrolled ? styles.scrolled : ''}`}>
+    <div className={`${styles.toolbar} ${isScrolled ? styles.scrolled : ''}`} role="region" aria-label="Users toolbar">
       <div className={styles.toolbarInner}>
         <div className={styles.header}>
           <h1 className={styles.title}>
