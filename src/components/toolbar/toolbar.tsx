@@ -17,9 +17,9 @@ function Toolbar({ onRoleFilter, onSearch, userCount, totalCount }: ToolbarProps
       <div className={styles.header}>
         <h1 className={styles.title}>
           {TOOLBAR_TITLE}
-          {userCount !== undefined && totalCount !== undefined && (
+          {userCount !== undefined && (
             <span className={styles.count}>
-              {userCount}{userCount !== totalCount ? ` of ${totalCount}` : ''}
+              {userCount}{totalCount !== undefined && userCount !== totalCount ? ` of ${totalCount}` : ''}
             </span>
           )}
         </h1>

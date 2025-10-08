@@ -1,44 +1,21 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { UserWithRole } from '../../../types/user.types';
-import { userService } from '../../../services/user.service';
 import UserCard from '../user-card/user-card';
 import UserCardSkeleton from '../user-card-skeleton/user-card-skeleton';
 import UserSidePanel from '../user-sidepanel/user-sidepanel';
 import NoUsers from '../no-users/no-users';
+import LoadMore from '../load-more/load-more';
 import Toolbar from '../../toolbar/toolbar';
+import { useInfiniteScroll } from '../../../hooks/useInfiniteScroll';
 import styles from './user-list.module.scss';
 
 function UserList() {
-  const [users, setUsers] = useState<UserWithRole[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserWithRole | null>(null);
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [roleFilter, setRoleFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        const [usersData] = await Promise.all([
-          userService.getUsers(),
-          new Promise(resolve => setTimeout(resolve, 1000))
-        ]);
-        
-        setUsers(usersData);
-      } catch (err) {
-        setError('Failed to load users');
-        console.error('Error fetching users:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  const { users, loading, error, hasMore, loadMore, total, isLoadingMore } = useInfiniteScroll();
 
   const handleUserClick = (user: UserWithRole) => {
     setSelectedUser(user);
@@ -92,12 +69,12 @@ function UserList() {
 
   return (
     <div className={styles.container}>
-      <Toolbar 
-        onRoleFilter={handleRoleFilter} 
-        onSearch={handleSearch}
-        userCount={filteredUsers.length}
-        totalCount={users.length}
-      />
+        <Toolbar 
+          onRoleFilter={handleRoleFilter} 
+          onSearch={handleSearch}
+          userCount={filteredUsers.length}
+          totalCount={total === -1 ? undefined : total}
+        />
       
       <div className={styles.list}>
         {filteredUsers.length > 0 ? (
@@ -108,6 +85,13 @@ function UserList() {
           <NoUsers />
         )}
       </div>
+      
+      <LoadMore 
+        onLoadMore={loadMore}
+        loading={loading}
+        hasMore={hasMore}
+        isLoadingMore={isLoadingMore}
+      />
       
       <UserSidePanel
         user={selectedUser}
