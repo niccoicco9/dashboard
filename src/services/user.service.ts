@@ -1,18 +1,10 @@
 import axios from 'axios';
 import { User, UserWithRole } from '../types/user.types';
 import { errorBus } from '../lib/error-bus';
-
-const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
-const RANDOM_USER_API = 'https://randomuser.me/api';
+import { API_BASE_URL, RANDOM_USER_API, DEBUG_API_ERRORS } from '../consts/api.const';
 
 const roles: Array<'admin' | 'user' | 'moderator'> = ['admin', 'user', 'moderator'];
 const statuses: Array<'active' | 'inactive' | 'pending'> = ['active', 'inactive', 'pending'];
-
-const DEBUG_API_ERRORS = {
-  ENABLE_ERRORS: false,
-  ERROR_TYPE: 'network',
-  ERROR_PAGE: 2,
-};
 
 const shouldSimulateError = (page: number): boolean => {
   if (!DEBUG_API_ERRORS.ENABLE_ERRORS) return false;
