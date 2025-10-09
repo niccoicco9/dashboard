@@ -35,6 +35,20 @@ function UserSidePanel({ user, isOpen, onClose }: UserSidePanelProps) {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', onKeyDown);
+    }
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isOpen]);
+
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
