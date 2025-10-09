@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { UserWithRole } from '@/types/user.types';
 import UserCard from '@/components/user/user-card/user-card';
 import UserCardSkeleton from '@/components/user/user-card-skeleton/user-card-skeleton';
@@ -14,6 +14,10 @@ function UserList() {
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [roleFilter, setRoleFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [showManualLoad, setShowManualLoad] = useState(false);
+  const [hasMeasured, setHasMeasured] = useState(false);
+  
 
   const { users, loading, error, hasMore, loadMore, total, isLoadingMore } = useInfiniteScroll();
 
@@ -51,9 +55,26 @@ function UserList() {
     return hasActiveFilters || hasFewResults;
   }, [roleFilter, searchQuery, filteredUsers.length]);
 
+  // Measure container height to decide whether to show the manual button
+  useEffect(() => {
+    const measure = () => {
+      const el = containerRef.current || document.documentElement;
+      const viewportH = window.innerHeight || document.documentElement.clientHeight;
+      const contentH = el.scrollHeight;
+      const tooShort = contentH <= viewportH;
+      setShowManualLoad(!shouldDisableInfiniteScroll && hasMore && tooShort);
+    };
+
+    measure();
+    setHasMeasured(true);
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [users.length, shouldDisableInfiniteScroll, hasMore]);
+
+
   if (loading) {
     return (
-      <div className={styles.container}>
+      <div className={styles.container} ref={containerRef}>
         <Toolbar onRoleFilter={handleRoleFilter} onSearch={handleSearch} />
         <div className={styles.list}>
           {Array.from({ length: 6 }).map((_, index) => (
@@ -72,8 +93,9 @@ function UserList() {
     );
   }
 
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
         <Toolbar 
           onRoleFilter={handleRoleFilter} 
           onSearch={handleSearch}
@@ -96,6 +118,8 @@ function UserList() {
         loading={loading}
         hasMore={hasMore && !shouldDisableInfiniteScroll}
         isLoadingMore={isLoadingMore}
+        showButton={showManualLoad}
+        disableObserver={!hasMeasured || showManualLoad}
       />
       
       <UserSidePanel

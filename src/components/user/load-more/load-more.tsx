@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Loader2 } from 'lucide-react';
 import styles from './load-more.module.scss';
 
@@ -7,25 +7,20 @@ interface LoadMoreProps {
   loading: boolean;
   hasMore: boolean;
   isLoadingMore?: boolean;
+  showButton?: boolean;
+  disableObserver?: boolean;
 }
 
-function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false }: LoadMoreProps) {
+function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showButton = false, disableObserver = false }: LoadMoreProps) {
   const triggerRef = useRef<HTMLDivElement>(null);
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setHasScrolled(true);
-      }
-    };
+    if (showButton) return;
+    if (disableObserver) return;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!hasScrolled) return;
+    const docEl = document.documentElement;
+    const canScroll = docEl.scrollHeight > (window.innerHeight || docEl.clientHeight);
+    if (!canScroll) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -35,8 +30,8 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false }: LoadM
         }
       },
       {
-        threshold: 0.1,
-        rootMargin: '50px'
+        threshold: 0,
+        rootMargin: '0px'
       }
     );
 
@@ -51,7 +46,7 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false }: LoadM
       }
       observer.disconnect();
     };
-  }, [onLoadMore, hasMore, loading, isLoadingMore, hasScrolled]);
+  }, [onLoadMore, hasMore, loading, isLoadingMore, showButton, disableObserver]);
 
   if (!hasMore) {
     return null;
@@ -64,10 +59,17 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false }: LoadM
           <Loader2 size={24} className={styles.spinner} />
           <span>Loading more users...</span>
         </div>
-      ) : !hasScrolled ? (
-        <div className={styles.scrollHint} data-testid="load-more-hint">
-          Scroll down to load more users
-        </div>
+      ) : showButton ? (
+        showButton ? (
+          <button
+            type="button"
+            className={styles.trigger}
+            onClick={() => onLoadMore()}
+            data-testid="load-more-button"
+          >
+            Load more users
+          </button>
+        ) : null
       ) : (
         <div 
           className={styles.trigger}
