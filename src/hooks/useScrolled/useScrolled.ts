@@ -5,7 +5,8 @@ export function useScrolled(threshold: number = 10) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > threshold);
+      const currentY = (typeof window.scrollY === 'number' ? window.scrollY : window.pageYOffset) || document.documentElement.scrollTop || 0;
+      setIsScrolled(currentY > threshold);
     };
 
     handleScroll();

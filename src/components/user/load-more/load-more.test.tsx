@@ -3,21 +3,22 @@ import { vi } from 'vitest';
 import LoadMore from './load-more';
 
 describe('LoadMore', () => {
-  it('renders loading state when loading is true', () => {
+  it('renders loading state when isLoadingMore is true', () => {
     const mockOnLoadMore = vi.fn();
     
     render(
       <LoadMore 
         onLoadMore={mockOnLoadMore} 
-        loading={true} 
+        loading={false}
         hasMore={true} 
+        isLoadingMore={true}
       />
     );
     
-    expect(screen.getByText('Loading more users...')).toBeInTheDocument();
+    expect(screen.getByTestId('load-more-loading')).toBeInTheDocument();
   });
 
-  it('renders trigger when not loading and has more', () => {
+  it('renders hint before scroll and trigger after scroll', () => {
     const mockOnLoadMore = vi.fn();
     
     render(
@@ -27,8 +28,8 @@ describe('LoadMore', () => {
         hasMore={true} 
       />
     );
-    
-    expect(screen.getByText('Scroll down to load more')).toBeInTheDocument();
+    // First shows hint
+    expect(screen.getByTestId('load-more-hint')).toBeInTheDocument();
   });
 
   it('renders nothing when hasMore is false', () => {
@@ -45,18 +46,18 @@ describe('LoadMore', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('has proper CSS classes', () => {
+  it('has proper wrapper test id', () => {
     const mockOnLoadMore = vi.fn();
     
     render(
       <LoadMore 
         onLoadMore={mockOnLoadMore} 
-        loading={true} 
+        loading={false}
         hasMore={true} 
+        isLoadingMore={true}
       />
     );
     
-    const container = screen.getByText('Loading more users...').closest('div');
-    expect(container).toHaveClass('loadMore');
+    expect(screen.getByTestId('load-more')).toBeInTheDocument();
   });
 });

@@ -58,19 +58,20 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false }: LoadM
   }
 
   return (
-    <div ref={triggerRef} className={styles.loadMore}>
+    <div ref={triggerRef} className={styles.loadMore} data-testid="load-more">
       {isLoadingMore ? (
-        <div className={styles.loading}>
+        <div className={styles.loading} data-testid="load-more-loading">
           <Loader2 size={24} className={styles.spinner} />
           <span>Loading more users...</span>
         </div>
       ) : !hasScrolled ? (
-        <div className={styles.scrollHint}>
+        <div className={styles.scrollHint} data-testid="load-more-hint">
           Scroll down to load more users
         </div>
       ) : (
         <div 
           className={styles.trigger}
+          data-testid="load-more-trigger"
           onClick={() => {
             onLoadMore();
           }}

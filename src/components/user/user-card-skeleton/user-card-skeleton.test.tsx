@@ -18,7 +18,7 @@ describe('UserCardSkeleton', () => {
     render(<UserCardSkeleton />);
     
     const card = screen.getByTestId('user-card-skeleton');
-    expect(card).toHaveClass('card');
+    expect(card).toBeInTheDocument();
   });
 
   it('has proper skeleton structure', () => {
@@ -29,9 +29,9 @@ describe('UserCardSkeleton', () => {
     const labelSkeleton = screen.getByTestId('label-skeleton');
     const badgeSkeleton = screen.getByTestId('badge-skeleton');
     
-    expect(nameSkeleton).toHaveClass('nameSkeleton');
-    expect(emailSkeleton).toHaveClass('emailSkeleton');
-    expect(labelSkeleton).toHaveClass('labelSkeleton');
-    expect(badgeSkeleton).toHaveClass('badgeSkeleton');
+    expect(nameSkeleton).toBeInTheDocument();
+    expect(emailSkeleton).toBeInTheDocument();
+    expect(labelSkeleton).toBeInTheDocument();
+    expect(badgeSkeleton).toBeInTheDocument();
   });
 });

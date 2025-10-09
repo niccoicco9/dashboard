@@ -4,7 +4,7 @@ import styles from './no-users.module.scss';
 
 function NoUsers() {
   return (
-    <div className={styles.noUsers}>
+    <div className={styles.noUsers} data-testid="no-users">
       <div className={styles.icon} data-testid="users-icon">
         <Users size={48} />
       </div>

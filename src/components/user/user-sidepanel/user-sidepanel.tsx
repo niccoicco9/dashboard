@@ -29,9 +29,9 @@ function UserSidePanel({ user, isOpen, onClose }: UserSidePanelProps) {
   if (!isOpen || !user) return null;
 
   return (
-    <div className={styles.overlay} onClick={handleClose}>
-      <div className={`${styles.panel} ${isClosing ? styles.closing : ''}`} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeButton} onClick={handleClose}>
+    <div className={styles.overlay} onClick={handleClose} data-testid="sidepanel-overlay">
+      <div className={`${styles.panel} ${isClosing ? styles.closing : ''}`} onClick={(e) => e.stopPropagation()} data-testid="sidepanel-panel">
+        <button className={styles.closeButton} onClick={handleClose} aria-label="Close side panel" data-testid="sidepanel-close">
           <X size={20} />
         </button>
 
@@ -42,8 +42,8 @@ function UserSidePanel({ user, isOpen, onClose }: UserSidePanelProps) {
               alt={`${user.name} avatar`}
               className={styles.avatar}
             />
-            <h3 className={styles.userName}>{user.name}</h3>
-            <p className={styles.userEmail}>{user.email}</p>
+            <h3 className={styles.userName} data-testid="sidepanel-name">{user.name}</h3>
+            <p className={styles.userEmail} data-testid="sidepanel-email">{user.email}</p>
             <div className={styles.badges}>
               <Badge kind="role" variant={user.role}>{user.role}</Badge>
               <Badge kind="status" variant={user.status}>{user.status}</Badge>

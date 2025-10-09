@@ -9,11 +9,9 @@ describe('NoUsers', () => {
     expect(screen.getByText('Try adjusting your search or filter criteria to find what you\'re looking for.')).toBeInTheDocument();
   });
 
-  it('has proper CSS classes', () => {
+  it('has proper wrapper test id', () => {
     render(<NoUsers />);
-    
-    const container = screen.getByText('No users found').closest('div');
-    expect(container).toHaveClass('noUsers');
+    expect(screen.getByTestId('no-users')).toBeInTheDocument();
   });
 
   it('displays icon with correct size', () => {

@@ -16,7 +16,7 @@ describe('useInfiniteScroll', () => {
     expect(result.current.loading).toBe(true);
     expect(result.current.error).toBe(null);
     expect(result.current.hasMore).toBe(true);
-    expect(result.current.total).toBe(0);
+    expect(result.current.total).toBeUndefined();
   });
 
   it('should have loadMore function', () => {

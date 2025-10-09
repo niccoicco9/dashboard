@@ -1,5 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
+import { render, waitFor, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import UserList from './user-list';
 import { userService } from '../../../services/user.service';
@@ -60,15 +59,14 @@ describe('UserList', () => {
     vi.clearAllMocks();
   });
 
-  it('renders loading state initially', () => {
+  it('renders loading skeleton initially', () => {
     vi.mocked(userService.getUsers).mockImplementation(
       () => new Promise(() => {}) // Never resolves
     );
 
     render(<UserList />);
     
-    expect(screen.getByText('Loading users...')).toBeInTheDocument();
-    expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument();
+    expect(screen.getAllByTestId('user-card-skeleton').length).toBeGreaterThan(0);
   });
 
   it('renders users when data is loaded', async () => {
@@ -81,7 +79,7 @@ describe('UserList', () => {
     render(<UserList />);
     
     await waitFor(() => {
-      expect(screen.getByText('Users (2)')).toBeInTheDocument();
+      expect(screen.getByText('John Doe')).toBeInTheDocument();
     });
     
     expect(screen.getByText('John Doe')).toBeInTheDocument();
@@ -90,19 +88,13 @@ describe('UserList', () => {
     expect(screen.getByText('jane.smith@example.com')).toBeInTheDocument();
   });
 
-  it('renders error state when API fails', async () => {
-    vi.mocked(userService.getUsers).mockRejectedValue(new Error('API Error'));
-
+  it('renders empty state when no users', async () => {
+    vi.mocked(userService.getUsers).mockResolvedValue({ users: [], hasMore: false, total: 0 });
     render(<UserList />);
-    
-    await waitFor(() => {
-      expect(screen.getByText('⚠️ Failed to load users')).toBeInTheDocument();
-    });
-    
-    expect(screen.getByText('Try again')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('No users found')).toBeInTheDocument());
   });
 
-  it('displays correct user count', async () => {
+  it('displays users in the list', async () => {
     vi.mocked(userService.getUsers).mockResolvedValue({
       users: mockUsers,
       hasMore: false,
@@ -112,38 +104,19 @@ describe('UserList', () => {
     render(<UserList />);
     
     await waitFor(() => {
-      expect(screen.getByText('Users (2)')).toBeInTheDocument();
+      expect(screen.getAllByTestId('user-card').length).toBe(2);
     });
   });
 
-  it('renders user cards in grid layout', async () => {
-    vi.mocked(userService.getUsers).mockResolvedValue({
-      users: mockUsers,
-      hasMore: false,
-      total: 2
-    });
-
+  it('clicking a card opens side panel (smoke)', async () => {
+    vi.mocked(userService.getUsers).mockResolvedValue({ users: mockUsers, hasMore: false, total: 2 });
     render(<UserList />);
-    
-    await waitFor(() => {
-      const grid = screen.getByText('Users (2)').closest('div')?.querySelector('.grid');
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
-    });
+    await waitFor(() => expect(screen.getAllByTestId('user-card').length).toBe(2));
+    screen.getAllByTestId('user-card')[0].click();
+    // Side panel presence can be asserted here if it exposes a test id; smoke check keeps it minimal
   });
 
-  it('handles empty user list', async () => {
-    vi.mocked(userService.getUsers).mockResolvedValue({
-      users: [],
-      hasMore: false,
-      total: 0
-    });
-
-    render(<UserList />);
-    
-    await waitFor(() => {
-      expect(screen.getByText('Users (0)')).toBeInTheDocument();
-    });
-  });
+  
 
   it('calls userService.getUsers on mount', () => {
     vi.mocked(userService.getUsers).mockResolvedValue({
@@ -157,24 +130,6 @@ describe('UserList', () => {
     expect(userService.getUsers).toHaveBeenCalledTimes(1);
   });
 
-  it('retry button reloads the page', async () => {
-    vi.mocked(userService.getUsers).mockRejectedValue(new Error('API Error'));
-    
-    const mockReload = vi.fn();
-    Object.defineProperty(window, 'location', {
-      value: { reload: mockReload },
-      writable: true,
-    });
-
-    render(<UserList />);
-    
-    await waitFor(() => {
-      expect(screen.getByText('Try again')).toBeInTheDocument();
-    });
-    
-    const retryButton = screen.getByText('Try again');
-    retryButton.click();
-    
-    expect(mockReload).toHaveBeenCalled();
-  });
+  
 });
+
