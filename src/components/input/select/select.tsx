@@ -12,17 +12,17 @@ interface SelectProps {
 
 function Select({ onRoleFilter, value, options }: SelectProps) {
   const firstValue = options[0]?.value ?? 'all';
-  const [selectedRole, setSelectedRole] = useState<string>(value ?? firstValue);
+  const [selectedValue, setSelectedValue] = useState<string>(value ?? firstValue);
 
-  const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const role = event.target.value;
-    setSelectedRole(role);
-    onRoleFilter(role);
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const next = event.target.value;
+    setSelectedValue(next);
+    onRoleFilter(next);
   };
 
-  const clearRole = () => {
-    setSelectedRole('all');
-    onRoleFilter('all');
+  const clearSelection = () => {
+    setSelectedValue(firstValue);
+    onRoleFilter(firstValue);
   };
 
   return (
@@ -30,23 +30,23 @@ function Select({ onRoleFilter, value, options }: SelectProps) {
       <select
         id="role-select"
         name="role"
-        value={selectedRole}
-        onChange={handleRoleChange}
-        className={`${styles.select} ${selectedRole !== 'all' ? styles.selectActive : ''}`}
+        value={selectedValue}
+        onChange={handleChange}
+        className={`${styles.select} ${selectedValue !== firstValue ? styles.selectActive : ''}`}
       >
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>{opt.label}</option>
         ))}
       </select>
       
-      {selectedRole === firstValue && (
+      {selectedValue === firstValue && (
         <div className={styles.selectIcon} data-testid="select-arrow">
           <ChevronDown size={16} />
         </div>
       )}
       
-      {selectedRole !== firstValue && (
-        <button onClick={clearRole} className={styles.clearButton} aria-label="Clear role filter">
+      {selectedValue !== firstValue && (
+        <button onClick={clearSelection} className={styles.clearButton} aria-label="Clear selection">
           <X size={14} />
         </button>
       )}
