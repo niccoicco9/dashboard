@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Search, X } from 'lucide-react';
 import styles from './search-bar.module.scss';
-import { SEARCH_PLACEHOLDER } from '@/consts/text.const';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
   value?: string;
+  placeholder: string;
 }
 
-function SearchBar({ onSearch, value = '' }: SearchBarProps) {
+function SearchBar({ onSearch, value = '', placeholder }: SearchBarProps) {
   const [searchQuery, setSearchQuery] = useState<string>(value);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ function SearchBar({ onSearch, value = '' }: SearchBarProps) {
         id="search-input"
         name="search"
         type="text"
-        placeholder={SEARCH_PLACEHOLDER}
+        placeholder={placeholder}
         value={searchQuery}
         onChange={handleSearchChange}
         className={`${styles.searchInput} ${searchQuery ? styles.searchActive : ''}`}
