@@ -12,10 +12,24 @@ interface UserSidePanelProps {
 
 function UserSidePanel({ user, isOpen, onClose }: UserSidePanelProps) {
   const [isClosing, setIsClosing] = useState(false);
+  const [applyOpen, setApplyOpen] = useState(false);
+
+  const openPanelAnimation = () => {
+    setIsClosing(false);
+    setApplyOpen(false);
+    requestAnimationFrame(() => setApplyOpen(true));
+  };
+
+  const resetPanelState = () => {
+    setIsClosing(false);
+    setApplyOpen(false);
+  };
 
   useEffect(() => {
-    if (!isOpen) {
-      setIsClosing(false);
+    if (isOpen) {
+      openPanelAnimation();
+    } else {
+      resetPanelState();
     }
   }, [isOpen]);
 
@@ -30,7 +44,7 @@ function UserSidePanel({ user, isOpen, onClose }: UserSidePanelProps) {
 
   return (
     <div className={styles.overlay} onClick={handleClose} data-testid="sidepanel-overlay">
-      <div className={`${styles.panel} ${isClosing ? styles.closing : ''}`} onClick={(e) => e.stopPropagation()} data-testid="sidepanel-panel">
+      <div className={`${styles.panel} ${isClosing ? styles.closing : ''} ${applyOpen && !isClosing ? styles.open : ''}`} onClick={(e) => e.stopPropagation()} data-testid="sidepanel-panel">
         <button className={styles.closeButton} onClick={handleClose} aria-label="Close side panel" data-testid="sidepanel-close">
           <X size={20} />
         </button>
