@@ -4,7 +4,7 @@ import Badge from '../badge/badge';
 
 interface UserCardProps {
   user: UserWithRole;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function UserCard({ user, onClick }: UserCardProps) {

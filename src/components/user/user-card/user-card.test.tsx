@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { UserWithRole } from '@/types/user.types';
+import { vi } from 'vitest';
 import UserCard from './user-card';
 
 const mockUser: UserWithRole = {
