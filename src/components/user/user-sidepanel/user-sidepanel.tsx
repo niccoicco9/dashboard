@@ -4,6 +4,7 @@ import Badge from '../badge/badge';
 import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Avatar from '@/components/user/avatar/avatar';
+import Typography from '@/components/input/typography/typography';
 
 interface UserSidePanelProps {
   user: UserWithRole | null;
@@ -53,8 +54,8 @@ function UserSidePanel({ user, isOpen, onClose }: UserSidePanelProps) {
         <div className={styles.content}>
           <div className={styles.userInfo}>
             <Avatar src={user.avatar} name={user.name} size={96} />
-            <h3 className={styles.userName} data-testid="sidepanel-name">{user.name}</h3>
-            <p className={styles.userEmail} data-testid="sidepanel-email">{user.email}</p>
+            <Typography variant="subtitle" className={styles.userName} data-testid="sidepanel-name">{user.name}</Typography>
+            <Typography variant="body" className={styles.userEmail} data-testid="sidepanel-email">{user.email}</Typography>
             <div className={styles.badges}>
               <Badge kind="role" variant={user.role}>{user.role}</Badge>
               <Badge kind="status" variant={user.status}>{user.status}</Badge>

@@ -1,4 +1,5 @@
 import { UserWithRole } from '@/types/user.types';
+import Typography from '@/components/input/typography/typography';
 import styles from './user-card.module.scss';
 import Badge from '../badge/badge';
 
@@ -13,8 +14,8 @@ function UserCard({ user, onClick }: UserCardProps) {
     <div className={styles.card} onClick={onClick} data-testid="user-card">
       <div className={styles.header}>
         <div className={styles.details}>
-          <h3 className={styles.name} title={user.name} data-testid="user-name">{user.name}</h3>
-          <p className={styles.email} title={user.email} data-testid="user-email">{user.email}</p>
+        <Typography variant="subtitle" className={styles.name} data-testid="user-name">{user.name}</Typography>
+        <Typography variant="body" className={styles.email} data-testid="user-email" title={user.email}>{user.email}</Typography>
         </div>
       </div>
 
