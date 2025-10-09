@@ -1,6 +1,6 @@
 import {} from 'react';
 import styles from './toolbar.module.scss';
-import { TOOLBAR_TITLE } from '@/consts/text.const';
+import { TOOLBAR_TITLE, ALL_ROLES_OPTION, ADMIN_ROLE_OPTION, MODERATOR_ROLE_OPTION, USER_ROLE_OPTION } from '@/consts/text.const';
 import SearchBar from '@/components/input/search-bar/search-bar';
 import Select from '@/components/input/select/select';
 import { useScrolled } from '@/hooks/useScrolled/useScrolled';
@@ -14,6 +14,12 @@ interface ToolbarProps {
 
 function Toolbar({ onRoleFilter, onSearch, userCount, totalCount }: ToolbarProps) {
   const isScrolled = useScrolled(10);
+  const roleOptions = [
+    { value: 'all', label: ALL_ROLES_OPTION },
+    { value: 'admin', label: ADMIN_ROLE_OPTION },
+    { value: 'moderator', label: MODERATOR_ROLE_OPTION },
+    { value: 'user', label: USER_ROLE_OPTION },
+  ];
 
   return (
     <div className={`${styles.toolbar} ${isScrolled ? styles.scrolled : ''}`} role="region" aria-label="Users toolbar">
@@ -31,7 +37,7 @@ function Toolbar({ onRoleFilter, onSearch, userCount, totalCount }: ToolbarProps
 
         <div className={styles.controls}>
           <SearchBar onSearch={onSearch} />
-          <Select onRoleFilter={onRoleFilter} />
+          <Select onRoleFilter={onRoleFilter} options={roleOptions} value="all" />
         </div>
       </div>
     </div>
