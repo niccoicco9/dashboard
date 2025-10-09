@@ -1,9 +1,8 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { UserWithRole } from '@/types/user.types';
-import UserCard from '@/components/user/user-card/user-card';
 import UserCardSkeleton from '@/components/user/user-card-skeleton/user-card-skeleton';
 import UserSidePanel from '@/components/user/user-sidepanel/user-sidepanel';
-import NoUsers from '@/components/user/no-users/no-users';
+import UserListGrid from '@/components/user/user-list/grid/UserListGrid';
 import LoadMore from '@/components/user/load-more/load-more';
 import Toolbar from '@/components/toolbar/toolbar';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll/useInfiniteScroll';
@@ -103,15 +102,7 @@ function UserList() {
           totalCount={total}
         />
       
-      <div className={styles.list}>
-        {filteredUsers.length > 0 ? (
-          filteredUsers.map((user: UserWithRole) => (
-            <UserCard key={user.id} user={user} onClick={() => handleUserClick(user)} />
-          ))
-        ) : (
-          <NoUsers />
-        )}
-      </div>
+      <UserListGrid users={filteredUsers} onUserClick={handleUserClick} />
       
       <LoadMore 
         onLoadMore={loadMore}

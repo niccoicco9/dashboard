@@ -1,9 +1,4 @@
 @use '../../../styles/mixins/breakpoints' as bp;
-.list {
-  display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1.5rem;
-}
 
 .container { 
   display: grid; 
@@ -17,12 +12,9 @@
     margin-top: 15rem;
   }
 }
-.headerRow { display: flex; align-items: center; justify-content: space-between; }
-.title { font-size: 2rem; font-weight: 700; color: #111827; }
-.title { color: var(--text); }
+ 
 
 @include bp.up(md) {
-  .list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   
   .container {
     margin-top: 7.5rem;
@@ -30,7 +22,6 @@
 }
 
 @include bp.up(lg) {
-  .list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   
   .container {
     margin-top: 7.5rem;
@@ -38,7 +29,6 @@
 }
 
 @include bp.up(xl) {
-  .list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   
   .container {
     margin-top: 7.5rem;
