@@ -3,6 +3,7 @@ import styles from './user-sidepanel.module.scss';
 import Badge from '../badge/badge';
 import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Avatar from '@/components/user/avatar/avatar';
 
 interface UserSidePanelProps {
   user: UserWithRole | null;
@@ -51,11 +52,7 @@ function UserSidePanel({ user, isOpen, onClose }: UserSidePanelProps) {
 
         <div className={styles.content}>
           <div className={styles.userInfo}>
-            <img
-              src={user.avatar}
-              alt={`${user.name} avatar`}
-              className={styles.avatar}
-            />
+            <Avatar src={user.avatar} name={user.name} size={96} />
             <h3 className={styles.userName} data-testid="sidepanel-name">{user.name}</h3>
             <p className={styles.userEmail} data-testid="sidepanel-email">{user.email}</p>
             <div className={styles.badges}>
