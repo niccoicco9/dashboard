@@ -7,6 +7,7 @@ import LoadMore from '@/components/user/load-more/load-more';
 import Toolbar from '@/components/toolbar/toolbar';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll/useInfiniteScroll';
 import styles from './user-list.module.scss';
+import gridStyles from '@/components/user/user-list/grid/UserListGrid.module.scss';
 
 function UserList() {
   const [selectedUser, setSelectedUser] = useState<UserWithRole | null>(null);
@@ -75,8 +76,8 @@ function UserList() {
     return (
       <div className={styles.container} ref={containerRef}>
         <Toolbar onRoleFilter={handleRoleFilter} onSearch={handleSearch} />
-        <div className={styles.list}>
-          {Array.from({ length: 6 }).map((_, index) => (
+        <div className={gridStyles.grid}>
+          {Array.from({ length: 12 }).map((_, index) => (
             <UserCardSkeleton key={index} />
           ))}
         </div>
