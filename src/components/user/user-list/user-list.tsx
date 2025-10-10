@@ -20,7 +20,7 @@ function UserList() {
   const [hasMeasured, setHasMeasured] = useState(false);
   
 
-  const { users, loading, error, hasMore, loadMore, total, isLoadingMore } = useInfiniteScroll();
+  const { users, loading, error, hasMore, loadMore, isLoadingMore } = useInfiniteScroll();
 
   const handleUserClick = (user: UserWithRole) => {
     setSelectedUser(user);
@@ -90,7 +90,6 @@ function UserList() {
           onRoleFilter={handleRoleFilter} 
           onSearch={handleSearch}
           userCount={filteredUsers.length}
-          totalCount={total}
         />
       
       <UserListGrid users={filteredUsers} onUserClick={handleUserClick} />
