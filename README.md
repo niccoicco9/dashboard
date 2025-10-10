@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+<div align="center">
+  <img src="src/assets/dashboard.svg" width="250" height="auto" alt="Dashboard"/>
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Dashboard
 
-Currently, two official plugins are available:
+Web app to explore and filter users with infinite scroll, side panel and light/dark theme.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This app has been created as part of a technical exercise.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Search users by name/email
+- Filter by role
+- User list with infinite scroll and loading skeletons
+- Side panel with user details
+- Light/dark theme with persistence
+- Centralized error handling
 
-## Expanding the ESLint configuration
+## How to run the project
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clone the repository
+2. Install dependencies
+   - npm: `npm install`
+3. Start the development environment
+   - npm: `npm run dev`
+4. Open the browser at the address shown in console (e.g. http://localhost:5173)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Testing
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Framework: Vitest + Testing Library
+- Command: `npm run test`
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Technologies used
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **React** + **TypeScript**
+- **Vite**
+- **SCSS Modules** (design tokens, mixins)
+- **Axios** for HTTP calls
+- **React Router**
+- **Lucide React** for icons
+- **Vitest** / **@testing-library** for testing
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Design
+
+The web app has a simple and modern design. It focuses on a few primary colors and clean shapes. It uses icons from Lucide React, which enhance clarity while maintaining a lightweight, elegant look.
+
+## Architecture
+
+- `src/components`: UI components (atomic and composite)
+- `src/pages`: main pages
+- `src/hooks`: reusable custom hooks
+- `src/services`: HTTP services, mappers and error utilities
+- `src/styles`: tokens, themes, mixins, global styles
+- `src/consts`: configuration constants
+
+## Accessibility
+
+- Semantic HTML (header, main, etc.)
+- ARIA where necessary (dialog for side panel, loading announcements)
+- Focus management and ESC for panel closing
+- Contrast and motion preferences respected
+
+## API
+
+This app uses the public [Random User API](https://randomuser.me).
+
+
+## Next steps
+
+- Edit user data (side panel form)
+- Full accessibility audit and keyboard traps review
+- Internationalization (i18n)
+
+## License
+
+This project is licensed under the MIT License.
+
+## Author
+
+Niccolò Tondi
