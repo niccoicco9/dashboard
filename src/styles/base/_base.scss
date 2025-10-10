@@ -1,4 +1,4 @@
-@use "../tokens/typography" as type;
+@use "@/styles/tokens/typography" as type;
 
 html {
   font-family: type.$font-sans;

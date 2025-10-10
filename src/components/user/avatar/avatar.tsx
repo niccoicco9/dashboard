@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { User as UserIcon } from 'lucide-react';
-import styles from './avatar.module.scss';
+import styles from '@/components/user/avatar/avatar.module.scss';
 
 interface AvatarProps {
   src?: string;

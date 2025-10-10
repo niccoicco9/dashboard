@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import styles from './sidepanel.module.scss';
+import styles from '@/components/overlay/sidepanel/sidepanel.module.scss';
 import { X } from 'lucide-react';
 
 interface SidePanelProps {

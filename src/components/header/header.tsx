@@ -1,11 +1,11 @@
 import logoSource from "@/assets/dashboard.svg";
 import { DARK_MODE_BUTTON_TEXT, HEADER_TITLE, LIGHT_MODE_BUTTON_TEXT } from "@/consts/text.const";
-import Button from "../input/button/button";
+import Button from "@/components/input/button/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/consts/routes.const";
 import { useState } from "react";
-import styles from './header.module.scss';
+import styles from '@/components/header/header.module.scss';
 import { useTheme } from '@/hooks/useTheme/useTheme';
 
 function Header() {

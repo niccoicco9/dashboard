@@ -2,8 +2,8 @@ import { apiClient } from './http/api-client';
 import { User, UserWithRole } from '@/types/user.types';
 import { errorBus } from '@/lib/error-bus';
 import { API_BASE_URL, RANDOM_USER_API } from '@/consts/api.const';
-import { mapRandomUser, RandomUserApiUser } from './utils/user-mappers';
-import { deriveErrorType } from './utils/error-utils';
+import { mapRandomUser, RandomUserApiUser } from '@/services/utils/user-mappers';
+import { deriveErrorType } from '@/services/utils/error-utils';
 
 const roles: Array<'admin' | 'user' | 'moderator'> = ['admin', 'user', 'moderator'];
 const statuses: Array<'active' | 'inactive' | 'pending'> = ['active', 'inactive', 'pending'];

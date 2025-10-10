@@ -1,4 +1,4 @@
-@use "../mixins/layer" as *;
+@use "@/styles/mixins/layer" as *;
 
 @include layer(theme) {
   .dark {

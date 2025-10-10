@@ -6,7 +6,8 @@ import UserListGrid from '@/components/user/user-list/grid/UserListGrid';
 import LoadMore from '@/components/user/load-more/load-more';
 import Toolbar from '@/components/toolbar/toolbar';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll/useInfiniteScroll';
-import styles from './user-list.module.scss';
+import { useUserFilters } from '@/hooks/useUserFilters/useUserFilters';
+import styles from '@/components/user/user-list/user-list.module.scss';
 import gridStyles from '@/components/user/user-list/grid/UserListGrid.module.scss';
 
 function UserList() {
@@ -39,15 +40,7 @@ function UserList() {
     setSearchQuery(query);
   };
 
-  const filteredUsers = useMemo(() => {
-    return users.filter((user: UserWithRole) => {
-      const matchesRole = roleFilter === 'all' || user.role === roleFilter;
-      const matchesSearch = searchQuery === '' || 
-        user.name.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      return matchesRole && matchesSearch;
-    });
-  }, [users, roleFilter, searchQuery]);
+  const { filteredUsers } = useUserFilters(users, roleFilter, searchQuery);
 
   const shouldDisableInfiniteScroll = useMemo(() => {
     const hasActiveFilters = roleFilter !== 'all' || searchQuery !== '';

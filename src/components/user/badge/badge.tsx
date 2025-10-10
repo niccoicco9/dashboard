@@ -1,4 +1,4 @@
-import styles from './badge.module.scss';
+import styles from '@/components/user/badge/badge.module.scss';
 import { Shield, ShieldCheck, User as UserIcon, CheckCircle2, XCircle, Clock } from 'lucide-react';
 
 type RoleVariant = 'admin' | 'moderator' | 'user';

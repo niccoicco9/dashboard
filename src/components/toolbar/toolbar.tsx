@@ -1,5 +1,5 @@
 import {} from 'react';
-import styles from './toolbar.module.scss';
+import styles from '@/components/toolbar/toolbar.module.scss';
 import { TOOLBAR_TITLE, SEARCH_PLACEHOLDER, ALL_ROLES_OPTION, ADMIN_ROLE_OPTION, MODERATOR_ROLE_OPTION, USER_ROLE_OPTION } from '@/consts/text.const';
 import SearchBar from '@/components/input/search-bar/search-bar';
 import Select from '@/components/input/select/select';

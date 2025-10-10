@@ -1,7 +1,7 @@
 import type { UserWithRole } from '@/types/user.types';
 import UserCard from '@/components/user/user-card/user-card';
 import NoUsers from '@/components/user/no-users/no-users';
-import styles from './UserListGrid.module.scss';
+import styles from '@/components/user/user-list/grid/UserListGrid.module.scss';
 
 interface UserListGridProps {
   users: UserWithRole[];

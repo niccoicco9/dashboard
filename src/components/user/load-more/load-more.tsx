@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Loader2 } from 'lucide-react';
-import styles from './load-more.module.scss';
+import styles from '@/components/user/load-more/load-more.module.scss';
 
 interface LoadMoreProps {
   onLoadMore: () => void;

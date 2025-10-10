@@ -1,4 +1,4 @@
-import styles from './user-card-skeleton.module.scss';
+import styles from '@/components/user/user-card-skeleton/user-card-skeleton.module.scss';
 
 function UserCardSkeleton() {
   return (

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AlertTriangle } from 'lucide-react';
 import Button from '@/components/input/button/button';
 import { errorBus, GlobalErrorEvent } from '@/lib/error-bus';
-import styles from './global-error-handler.module.scss';
+import styles from '@/components/error/global-error-handler.module.scss';
 
 
 interface GlobalErrorHandlerProps {
