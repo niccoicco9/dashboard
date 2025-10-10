@@ -75,6 +75,8 @@ export default function SidePanel({
         onClick={(e) => e.stopPropagation()}
         style={{ width: typeof width === 'number' ? `${width}px` : width }}
         data-testid="sidepanel-panel"
+        role="dialog"
+        aria-modal="true"
       >
         {(title || showCloseButton) && (
           <div className={styles.header}>
