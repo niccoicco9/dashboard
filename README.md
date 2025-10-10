@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/assets/dashboard.svg" width="250" height="auto" alt="Dashboard"/>
+  <img src="src/assets/dashboard.svg" width="200" height="auto" alt="Dashboard"/>
 </div>
 
 # Dashboard
@@ -75,7 +75,7 @@ This app uses the public [Random User API](https://randomuser.me).
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Author
 
