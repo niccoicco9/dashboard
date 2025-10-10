@@ -14,16 +14,16 @@
 
 .icon { width: 0.875rem; height: 0.875rem; }
 
-.neutral { background: rgba(107, 114, 128, 0.12); color: #374151; box-shadow: inset 0 0 0 1px rgba(107,114,128,.25); }
-.info    { background: rgba(59, 130, 246, 0.12); color: #2563eb; box-shadow: inset 0 0 0 1px rgba(59,130,246,.25); }
-.success { background: rgba(34, 197, 94, 0.12); color: #16a34a; box-shadow: inset 0 0 0 1px rgba(34,197,94,.25); }
-.warning { background: rgba(245, 158, 11, 0.12); color: #b45309; box-shadow: inset 0 0 0 1px rgba(245,158,11,.25); }
-.danger  { background: rgba(239, 68, 68, 0.12); color: #b91c1c; box-shadow: inset 0 0 0 1px rgba(239,68,68,.25); }
+.neutral { background: c.$badge-neutral-bg; color: c.$badge-neutral-fg; box-shadow: inset 0 0 0 1px c.$badge-neutral-border; }
+.info    { background: c.$badge-info-bg;    color: c.$badge-info-fg;    box-shadow: inset 0 0 0 1px c.$badge-info-border; }
+.success { background: c.$badge-success-bg; color: c.$badge-success-fg; box-shadow: inset 0 0 0 1px c.$badge-success-border; }
+.warning { background: c.$badge-warning-bg; color: c.$badge-warning-fg; box-shadow: inset 0 0 0 1px c.$badge-warning-border; }
+.danger  { background: c.$badge-danger-bg;  color: c.$badge-danger-fg;  box-shadow: inset 0 0 0 1px c.$badge-danger-border; }
 
-.dark .neutral { background: rgba(156,163,175,.22); color: #e5e7eb; box-shadow: inset 0 0 0 1px rgba(156,163,175,.35); }
-.dark .info    { background: rgba(96,165,250,.22); color: #bfdbfe; box-shadow: inset 0 0 0 1px rgba(59,130,246,.35); }
-.dark .success { background: rgba(74,222,128,.22); color: #bbf7d0; box-shadow: inset 0 0 0 1px rgba(34,197,94,.35); }
-.dark .warning { background: rgba(251,191,36,.22); color: #fde68a; box-shadow: inset 0 0 0 1px rgba(245,158,11,.35); }
-.dark .danger  { background: rgba(248,113,113,.22); color: #fecaca; box-shadow: inset 0 0 0 1px rgba(239,68,68,.35); }
+.dark .neutral { background: c.$badge-neutral-bg-dark; color: c.$badge-neutral-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-neutral-border-dark; }
+.dark .info    { background: c.$badge-info-bg-dark;    color: c.$badge-info-fg-dark;    box-shadow: inset 0 0 0 1px c.$badge-info-border-dark; }
+.dark .success { background: c.$badge-success-bg-dark; color: c.$badge-success-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-success-border-dark; }
+.dark .warning { background: c.$badge-warning-bg-dark; color: c.$badge-warning-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-warning-border-dark; }
+.dark .danger  { background: c.$badge-danger-bg-dark;  color: c.$badge-danger-fg-dark;  box-shadow: inset 0 0 0 1px c.$badge-danger-border-dark; }
 
 

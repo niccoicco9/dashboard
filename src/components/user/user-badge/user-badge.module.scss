@@ -1,67 +1,18 @@
 @use '@/styles/tokens/colors' as c;
-@use '@/styles/tokens/typography' as t;
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.125rem 0.5rem;
-  border-radius: 9999px;
-  font-size: t.$text-xs;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
 .icon { width: 0.875rem; height: 0.875rem; }
 
-.roleAdmin {
-  background: rgba(139, 92, 246, 0.12);
-  color: #6d28d9;
-  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.25);
-}
-.roleModerator {
-  background: rgba(59, 130, 246, 0.16);
-  color: #1d4ed8;
-  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.3);
-}
-.roleUser {
-  background: rgba(45, 212, 191, 0.16);
-  color: #0f766e;
-  box-shadow: inset 0 0 0 1px rgba(45, 212, 191, 0.3);
-}
+.roleAdmin { background: c.$badge-info-bg; color: c.$badge-info-fg; box-shadow: inset 0 0 0 1px c.$badge-info-border; }
+.roleModerator { background: c.$badge-success-bg; color: c.$badge-success-fg; box-shadow: inset 0 0 0 1px c.$badge-success-border; }
+.roleUser { background: c.$badge-neutral-bg; color: c.$badge-neutral-fg; box-shadow: inset 0 0 0 1px c.$badge-neutral-border; }
 
-.statusActive { background: c.$gray-100; color: c.$gray-700; }
-.statusInactive { background: c.$gray-100; color: c.$gray-700; }
-.statusPending { background: c.$gray-100; color: c.$gray-700; }
+.statusActive { background: c.$badge-success-bg; color: c.$badge-success-fg; box-shadow: inset 0 0 0 1px c.$badge-success-border; }
+.statusInactive { background: c.$badge-danger-bg; color: c.$badge-danger-fg; box-shadow: inset 0 0 0 1px c.$badge-danger-border; }
+.statusPending { background: c.$badge-warning-bg; color: c.$badge-warning-fg; box-shadow: inset 0 0 0 1px c.$badge-warning-border; }
 
-.dark .roleAdmin { 
-  background: rgba(167, 139, 250, 0.22);
-  color: #ddd6fe;
-  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.35);
-}
-.dark .roleModerator { 
-  background: rgba(59, 130, 246, 0.35);
-  color: #dbeafe;
-  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.55);
-}
-.dark .roleUser { 
-  background: rgba(45, 212, 191, 0.35);
-  color: #99f6e4;
-  box-shadow: inset 0 0 0 1px rgba(45, 212, 191, 0.55);
-}
-.dark .statusActive { 
-  background: rgba(74, 222, 128, 0.22);
-  color: #bbf7d0;
-  box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.35);
-}
-.dark .statusInactive { 
-  background: rgba(248, 113, 113, 0.22);
-  color: #fecaca;
-  box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.35);
-}
-.dark .statusPending { 
-  background: rgba(251, 191, 36, 0.22);
-  color: #fde68a;
-  box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
-}
+.dark .roleAdmin { background: c.$badge-info-bg-dark; color: c.$badge-info-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-info-border-dark; }
+.dark .roleModerator { background: c.$badge-success-bg-dark; color: c.$badge-success-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-success-border-dark; }
+.dark .roleUser { background: c.$badge-neutral-bg-dark; color: c.$badge-neutral-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-neutral-border-dark; }
+.dark .statusActive { background: c.$badge-success-bg-dark; color: c.$badge-success-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-success-border-dark; }
+.dark .statusInactive { background: c.$badge-danger-bg-dark; color: c.$badge-danger-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-danger-border-dark; }
+.dark .statusPending { background: c.$badge-warning-bg-dark; color: c.$badge-warning-fg-dark; box-shadow: inset 0 0 0 1px c.$badge-warning-border-dark; }
 
