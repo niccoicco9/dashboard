@@ -3,6 +3,7 @@ import { AlertTriangle } from 'lucide-react';
 import Button from '@/components/input/button/button';
 import { errorBus, GlobalErrorEvent } from '@/lib/error-bus';
 import styles from '@/components/error/global-error-handler.module.scss';
+import Typography from '@/components/input/typography/typography';
 
 
 interface GlobalErrorHandlerProps {
@@ -24,10 +25,13 @@ export default function GlobalErrorHandler({ onRetry }: GlobalErrorHandlerProps)
     <div className={styles.overlay} role="dialog" aria-modal="true">
       <div className={styles.modal}>
         <div className={styles.header}>
-          <div className={styles.title}><AlertTriangle size={20} /><span>Something went wrong</span></div>
+          <div className={styles.title}>
+            <AlertTriangle size={20} />
+            <Typography variant="subtitle">Something went wrong</Typography>
+          </div>
         </div>
         <div className={styles.body}>
-          <p className={styles.message}>{error.message}</p>
+          <Typography variant="body" className={styles.message}>{error.message}</Typography>
         </div>
         <div className={styles.footer}>
           <Button title="Try Again" onClick={() => { close(); onRetry && onRetry(); }} variant="contained" tone="accent" />

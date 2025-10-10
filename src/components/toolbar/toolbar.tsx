@@ -1,6 +1,7 @@
 import {} from 'react';
 import styles from '@/components/toolbar/toolbar.module.scss';
-import { TOOLBAR_TITLE, SEARCH_PLACEHOLDER, ALL_ROLES_OPTION, ADMIN_ROLE_OPTION, MODERATOR_ROLE_OPTION, USER_ROLE_OPTION } from '@/consts/text.const';
+import { TOOLBAR_TITLE, SEARCH_PLACEHOLDER } from '@/consts/text.const';
+import { ROLE_OPTIONS } from '@/consts/filters.const';
 import SearchBar from '@/components/input/search-bar/search-bar';
 import Select from '@/components/input/select/select';
 import { useScrolled } from '@/hooks/useScrolled/useScrolled';
@@ -9,17 +10,11 @@ interface ToolbarProps {
   onRoleFilter: (role: string) => void;
   onSearch: (query: string) => void;
   userCount?: number;
-  totalCount?: number;
 }
 
-function Toolbar({ onRoleFilter, onSearch, userCount, totalCount }: ToolbarProps) {
+function Toolbar({ onRoleFilter, onSearch, userCount }: ToolbarProps) {
   const isScrolled = useScrolled(10);
-  const roleOptions = [
-    { value: 'all', label: ALL_ROLES_OPTION },
-    { value: 'admin', label: ADMIN_ROLE_OPTION },
-    { value: 'moderator', label: MODERATOR_ROLE_OPTION },
-    { value: 'user', label: USER_ROLE_OPTION },
-  ];
+  const roleOptions = ROLE_OPTIONS;
 
   return (
     <div className={`${styles.toolbar} ${isScrolled ? styles.scrolled : ''}`} role="region" aria-label="Users toolbar">
@@ -29,7 +24,7 @@ function Toolbar({ onRoleFilter, onSearch, userCount, totalCount }: ToolbarProps
             {TOOLBAR_TITLE}
             {userCount !== undefined && (
               <span className={styles.count}>
-                {userCount}{totalCount !== undefined && userCount !== totalCount ? ` of ${totalCount}` : ''}
+                {userCount}
               </span>
             )}
           </h1>
