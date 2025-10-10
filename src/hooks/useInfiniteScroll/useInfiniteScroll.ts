@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { UserWithRole } from '@/types/user.types';
 import { userService } from '@/services/user.service';
 
@@ -21,9 +21,15 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
   const [total, setTotal] = useState<number | undefined>(undefined);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [hasInitialized, setHasInitialized] = useState(false);
+  const MAX_PAGES = 10;
+  
+  const isFetchingRef = useRef(false);
+  const usersRef = useRef<UserWithRole[]>([]);
 
   const loadUsers = useCallback(async (pageNum: number, append: boolean = false) => {
+    if (isFetchingRef.current) return;
     try {
+      isFetchingRef.current = true;
       if (!append) {
         setLoading(true);
       } else {
@@ -33,28 +39,32 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
       
       const result = await userService.getUsers(pageNum, 12);
       
-      if (append) {
-        setUsers(prev => [...prev, ...result.users]);
-      } else {
-        setUsers(result.users);
-      }
-      
-      setHasMore(result.hasMore);
+      const newUsers = append ? [...usersRef.current, ...result.users] : result.users;
+      setUsers(newUsers);
+
+      const reachedPageLimit = pageNum >= MAX_PAGES;
+      setHasMore(result.hasMore && !reachedPageLimit);
       setTotal(result.total);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch users');
     } finally {
       setLoading(false);
       setIsLoadingMore(false);
+      isFetchingRef.current = false;
     }
   }, []);
 
   const loadMore = useCallback(() => {
+    if (isFetchingRef.current) return;
     if (!loading && !isLoadingMore && hasMore) {
       const nextPage = page + 1;
+      if (nextPage > MAX_PAGES) {
+        setHasMore(false);
+        return;
+      }
       setPage(nextPage);
       loadUsers(nextPage, true);
-    } 
+    }
   }, [loading, hasMore, page, loadUsers, isLoadingMore]);
 
   useEffect(() => {
@@ -63,6 +73,10 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
       loadUsers(1, false);
     }
   }, [hasInitialized, loadUsers]);
+
+  useEffect(() => {
+    usersRef.current = users;
+  }, [users]);
 
   return {
     users,

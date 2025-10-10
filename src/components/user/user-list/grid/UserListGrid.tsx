@@ -13,8 +13,8 @@ export default function UserListGrid({ users, onUserClick, className }: UserList
   return (
     <div className={className || styles.grid}>
       {users.length > 0 ? (
-        users.map((user) => (
-          <UserCard key={user.id} user={user} onClick={() => onUserClick(user)} />
+        users.map((user, index) => (
+          <UserCard key={`${user.id}-${index}`} user={user} onClick={() => onUserClick(user)} />
         ))
       ) : (
         <NoUsers />

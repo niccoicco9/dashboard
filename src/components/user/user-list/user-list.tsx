@@ -48,21 +48,26 @@ function UserList() {
     return hasActiveFilters || hasFewResults;
   }, [roleFilter, searchQuery, filteredUsers.length]);
 
-  // Measure container height to decide whether to show the manual button
   useEffect(() => {
     const measure = () => {
-      const el = containerRef.current || document.documentElement;
       const viewportH = window.innerHeight || document.documentElement.clientHeight;
-      const contentH = el.scrollHeight;
-      const tooShort = contentH <= viewportH;
-      setShowManualLoad(!shouldDisableInfiniteScroll && hasMore && tooShort);
+      const contentH = document.documentElement.scrollHeight;
+      const canScroll = contentH > viewportH;
+      setShowManualLoad(!shouldDisableInfiniteScroll && hasMore && !canScroll);
     };
+
+    const ro = new ResizeObserver(() => measure());
+    const container = containerRef.current ?? document.body;
+    if (container) ro.observe(container);
 
     measure();
     setHasMeasured(true);
     window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, [users.length, shouldDisableInfiniteScroll, hasMore]);
+    return () => {
+      window.removeEventListener('resize', measure);
+      try { ro.disconnect(); } catch {}
+    };
+  }, [users.length, filteredUsers.length, shouldDisableInfiniteScroll, hasMore]);
 
 
   if (loading) {

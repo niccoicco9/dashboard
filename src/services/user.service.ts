@@ -9,7 +9,6 @@ const roles: Array<'admin' | 'user' | 'moderator'> = ['admin', 'user', 'moderato
 const statuses: Array<'active' | 'inactive' | 'pending'> = ['active', 'inactive', 'pending'];
 
 const DEFAULT_LIMIT = 12;
-const TOTAL_PAGES = 10;
 
 export const userService = {
   async getUsers(page: number = 1, limit: number = DEFAULT_LIMIT, signal?: AbortSignal): Promise<{ users: UserWithRole[], hasMore: boolean, total: number | undefined }> {
@@ -24,12 +23,12 @@ export const userService = {
         mapRandomUser(user, index, page, limit)
       );
       
-      const hasMore = page < TOTAL_PAGES;
+      const hasMore = randomUsers.length === limit;
       
       return {
         users: usersWithRoles,
         hasMore,
-        total: hasMore ? undefined : TOTAL_PAGES * limit
+        total: undefined
       };
     } catch (error: any) {
       if (error?.name === 'CanceledError' || error?.code === 'ERR_CANCELED') {

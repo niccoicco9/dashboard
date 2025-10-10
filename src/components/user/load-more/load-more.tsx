@@ -13,6 +13,7 @@ interface LoadMoreProps {
 
 function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showButton = false, disableObserver = false }: LoadMoreProps) {
   const triggerRef = useRef<HTMLDivElement>(null);
+  const hasUserScrolledRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (showButton) return;
@@ -22,16 +23,52 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showBut
     const canScroll = docEl.scrollHeight > (window.innerHeight || docEl.clientHeight);
     if (!canScroll) return;
 
+    const onFirstScroll = () => {
+      hasUserScrolledRef.current = true;
+      const el = triggerRef.current;
+      const viewportH = window.innerHeight || docEl.clientHeight;
+      if (
+        el &&
+        el.getBoundingClientRect().top <= viewportH &&
+        hasMore &&
+        !loading &&
+        !isLoadingMore
+      ) {
+        onLoadMore();
+      }
+      window.removeEventListener('scroll', onFirstScroll);
+    };
+    window.addEventListener('scroll', onFirstScroll, { passive: true });
+
+    const maybeTriggerOnScrollBottom = () => {
+      if (!hasUserScrolledRef.current) return;
+      const scrollY = window.pageYOffset || docEl.scrollTop || 0;
+      const viewportH = window.innerHeight || docEl.clientHeight;
+      const docH = docEl.scrollHeight;
+      const distanceFromBottom = docH - (scrollY + viewportH);
+      if (distanceFromBottom <= 200 && hasMore && !loading && !isLoadingMore) {
+        onLoadMore();
+      }
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry && entry.isIntersecting && hasMore && !loading && !isLoadingMore) {
+        if (
+          entry &&
+          entry.isIntersecting &&
+          hasMore &&
+          !loading &&
+          !isLoadingMore &&
+          hasUserScrolledRef.current
+        ) {
           onLoadMore();
         }
       },
       {
         threshold: 0,
-        rootMargin: '0px'
+        // Trigger a bit earlier as the user approaches the bottom
+        rootMargin: '0px 0px 200px 0px'
       }
     );
 
@@ -40,11 +77,15 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showBut
       observer.observe(currentRef);
     }
 
+    window.addEventListener('scroll', maybeTriggerOnScrollBottom, { passive: true });
+
     return () => {
       if (currentRef) {
         observer.unobserve(currentRef);
       }
       observer.disconnect();
+      window.removeEventListener('scroll', onFirstScroll);
+      window.removeEventListener('scroll', maybeTriggerOnScrollBottom);
     };
   }, [onLoadMore, hasMore, loading, isLoadingMore, showButton, disableObserver]);
 
@@ -64,7 +105,10 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showBut
           <button
             type="button"
             className={styles.trigger}
-            onClick={() => onLoadMore()}
+            onClick={() => {
+              hasUserScrolledRef.current = true;
+              onLoadMore();
+            }}
             data-testid="load-more-button"
           >
             Load more users
