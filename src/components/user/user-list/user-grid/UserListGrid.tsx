@@ -1,7 +1,7 @@
 import type { UserWithRole } from '@/types/user.types';
 import UserCard from '@/components/user/user-card/user-card';
 import NoUsers from '@/components/user/no-users/no-users';
-import styles from '@/components/user/user-list/grid/UserListGrid.module.scss';
+import Grid from '@/components/grid/grid';
 
 interface UserListGridProps {
   users: UserWithRole[];
@@ -11,7 +11,7 @@ interface UserListGridProps {
 
 export default function UserListGrid({ users, onUserClick, className }: UserListGridProps) {
   return (
-    <div className={className || styles.grid}>
+    <Grid columns={{ sm: 2, lg: 3, xl: 4 }} className={className}>
       {users.length > 0 ? (
         users.map((user, index) => (
           <UserCard key={`${user.id}-${index}`} user={user} onClick={() => onUserClick(user)} />
@@ -19,7 +19,7 @@ export default function UserListGrid({ users, onUserClick, className }: UserList
       ) : (
         <NoUsers />
       )}
-    </div>
+    </Grid>
   );
 }
 

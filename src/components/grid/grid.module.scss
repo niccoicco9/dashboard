@@ -1,0 +1,21 @@
+@use '@/styles/mixins/breakpoints' as bp;
+@use '@/styles/tokens/spacing' as spacing;
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--grid-gap, #{spacing.$space-md});
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  > * { min-width: 0; }
+
+  @include bp.up(sm) { grid-template-columns: repeat(var(--cols-sm, 2), minmax(0, 1fr)); }
+  @include bp.up(lg) { grid-template-columns: repeat(var(--cols-lg, 3), minmax(0, 1fr)); }
+  @include bp.up(xl) { grid-template-columns: repeat(var(--cols-xl, 4), minmax(0, 1fr)); }
+  
+  @include bp.up(md) { gap: var(--grid-gap, #{spacing.$space-lg}); }
+}
+

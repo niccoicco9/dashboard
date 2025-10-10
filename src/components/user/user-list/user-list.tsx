@@ -2,13 +2,13 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { UserWithRole } from '@/types/user.types';
 import UserCardSkeleton from '@/components/user/user-card-skeleton/user-card-skeleton';
 import UserSidePanel from '@/components/user/user-sidepanel/user-sidepanel';
-import UserListGrid from '@/components/user/user-list/grid/UserListGrid';
+import UserListGrid from '@/components/user/user-list/user-grid/UserListGrid';
 import LoadMore from '@/components/user/load-more/load-more';
 import Toolbar from '@/components/toolbar/toolbar';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll/useInfiniteScroll';
 import { useUserFilters } from '@/hooks/useUserFilters/useUserFilters';
 import styles from '@/components/user/user-list/user-list.module.scss';
-import gridStyles from '@/components/user/user-list/grid/UserListGrid.module.scss';
+import Grid from '@/components/grid/grid';
 
 function UserList() {
   const [selectedUser, setSelectedUser] = useState<UserWithRole | null>(null);
@@ -70,11 +70,11 @@ function UserList() {
     return (
       <div className={styles.container} ref={containerRef}>
         <Toolbar onRoleFilter={handleRoleFilter} onSearch={handleSearch} />
-        <div className={gridStyles.grid}>
+        <Grid columns={{ sm: 2, lg: 3, xl: 4 }}>
           {Array.from({ length: 12 }).map((_, index) => (
             <UserCardSkeleton key={index} />
           ))}
-        </div>
+        </Grid>
       </div>
     );
   }
