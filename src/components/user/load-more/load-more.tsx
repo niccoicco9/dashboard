@@ -14,6 +14,7 @@ interface LoadMoreProps {
 function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showButton = false, disableObserver = false }: LoadMoreProps) {
   const triggerRef = useRef<HTMLDivElement>(null);
   const hasUserScrolledRef = useRef<boolean>(false);
+  const canLoadMore = () => hasMore && !loading && !isLoadingMore;
 
   useEffect(() => {
     if (showButton) return;
@@ -27,13 +28,7 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showBut
       hasUserScrolledRef.current = true;
       const el = triggerRef.current;
       const viewportH = window.innerHeight || docEl.clientHeight;
-      if (
-        el &&
-        el.getBoundingClientRect().top <= viewportH &&
-        hasMore &&
-        !loading &&
-        !isLoadingMore
-      ) {
+      if (el && el.getBoundingClientRect().top <= viewportH && canLoadMore()) {
         onLoadMore();
       }
       window.removeEventListener('scroll', onFirstScroll);
@@ -46,7 +41,7 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showBut
       const viewportH = window.innerHeight || docEl.clientHeight;
       const docH = docEl.scrollHeight;
       const distanceFromBottom = docH - (scrollY + viewportH);
-      if (distanceFromBottom <= 200 && hasMore && !loading && !isLoadingMore) {
+      if (distanceFromBottom <= 200 && canLoadMore()) {
         onLoadMore();
       }
     };
@@ -54,14 +49,7 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showBut
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (
-          entry &&
-          entry.isIntersecting &&
-          hasMore &&
-          !loading &&
-          !isLoadingMore &&
-          hasUserScrolledRef.current
-        ) {
+        if (entry && entry.isIntersecting && hasUserScrolledRef.current && canLoadMore()) {
           onLoadMore();
         }
       },
@@ -101,19 +89,17 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showBut
           <span>Loading more users...</span>
         </div>
       ) : showButton ? (
-        showButton ? (
-          <button
-            type="button"
-            className={styles.trigger}
-            onClick={() => {
-              hasUserScrolledRef.current = true;
-              onLoadMore();
-            }}
-            data-testid="load-more-button"
-          >
-            Load more users
-          </button>
-        ) : null
+        <button
+          type="button"
+          className={styles.trigger}
+          onClick={() => {
+            hasUserScrolledRef.current = true;
+            onLoadMore();
+          }}
+          data-testid="load-more-button"
+        >
+          Load more users
+        </button>
       ) : (
         <div 
           className={styles.trigger}

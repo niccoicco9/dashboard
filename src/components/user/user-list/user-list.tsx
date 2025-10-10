@@ -32,13 +32,9 @@ function UserList() {
     setSelectedUser(null);
   };
 
-  const handleRoleFilter = (role: string) => {
-    setRoleFilter(role);
-  };
+  const handleRoleFilter = (role: string) => setRoleFilter(role);
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-  };
+  const handleSearch = (query: string) => setSearchQuery(query);
 
   const { filteredUsers } = useUserFilters(users, roleFilter, searchQuery);
 
@@ -84,11 +80,7 @@ function UserList() {
   }
 
   if (error) {
-    return (
-      <div className={styles.container}>
-        {}
-      </div>
-    );
+    return <div className={styles.container} />;
   }
 
 

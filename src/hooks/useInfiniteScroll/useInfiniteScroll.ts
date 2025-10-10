@@ -22,9 +22,9 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [hasInitialized, setHasInitialized] = useState(false);
   const MAX_PAGES = 10;
-  
+  const PAGE_SIZE = 12;
+
   const isFetchingRef = useRef(false);
-  const usersRef = useRef<UserWithRole[]>([]);
 
   const loadUsers = useCallback(async (pageNum: number, append: boolean = false) => {
     if (isFetchingRef.current) return;
@@ -37,10 +37,13 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
       }
       setError(null);
       
-      const result = await userService.getUsers(pageNum, 12);
+      const result = await userService.getUsers(pageNum, PAGE_SIZE);
       
-      const newUsers = append ? [...usersRef.current, ...result.users] : result.users;
-      setUsers(newUsers);
+      if (append) {
+        setUsers(prev => [...prev, ...result.users]);
+      } else {
+        setUsers(result.users);
+      }
 
       const reachedPageLimit = pageNum >= MAX_PAGES;
       setHasMore(result.hasMore && !reachedPageLimit);
@@ -74,9 +77,7 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
     }
   }, [hasInitialized, loadUsers]);
 
-  useEffect(() => {
-    usersRef.current = users;
-  }, [users]);
+  // no usersRef needed; we append via setState functional updates
 
   return {
     users,
