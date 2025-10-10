@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/assets/dashboard.svg" width="200" height="auto" alt="Dashboard"/>
+  <img src="src/assets/dashboard.svg" width="150" height="auto" alt="Dashboard"/>
 </div>
 
 # Dashboard
