@@ -1,6 +1,6 @@
 import { UserWithRole } from '@/types/user.types';
 import styles from '@/components/user/user-sidepanel/user-sidepanel.module.scss';
-import Badge from '@/components/user/badge/badge';
+import Badge from '@/components/user/user-badge/user-badge';
 import Avatar from '@/components/user/avatar/avatar';
 import Typography from '@/components/input/typography/typography';
 import SidePanel from '@/components/overlay/sidepanel/sidepanel';

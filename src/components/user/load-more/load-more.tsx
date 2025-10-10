@@ -55,7 +55,6 @@ function LoadMore({ onLoadMore, loading, hasMore, isLoadingMore = false, showBut
       },
       {
         threshold: 0,
-        // Trigger a bit earlier as the user approaches the bottom
         rootMargin: '0px 0px 200px 0px'
       }
     );

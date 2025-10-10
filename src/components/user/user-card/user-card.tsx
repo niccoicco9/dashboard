@@ -1,7 +1,7 @@
 import { UserWithRole } from '@/types/user.types';
 import Typography from '@/components/input/typography/typography';
 import styles from '@/components/user/user-card/user-card.module.scss';
-import Badge from '@/components/user/badge/badge';
+import Badge from '@/components/user/user-badge/user-badge';
 
 interface UserCardProps {
   user: UserWithRole;

@@ -77,8 +77,6 @@ export function useInfiniteScroll(): UseInfiniteScrollReturn {
     }
   }, [hasInitialized, loadUsers]);
 
-  // no usersRef needed; we append via setState functional updates
-
   return {
     users,
     loading,

@@ -3,7 +3,6 @@ import { SEARCH_PLACEHOLDER } from '@/consts/text.const';
 import { vi } from 'vitest';
 import UserList from './user-list';
 
-// Mock the infinite scroll hook to provide deterministic data
 vi.mock('@/hooks/useInfiniteScroll/useInfiniteScroll', () => {
   const users = [
     { id: '1', name: 'Alice Johnson', email: 'alice@example.com', role: 'admin', status: 'active', avatar: '' },

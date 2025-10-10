@@ -39,7 +39,6 @@ export default function SidePanel({
     }
   }, [isOpen]);
 
-  // esc handler
   useEffect(() => {
     if (!closeOnEsc || !isOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
