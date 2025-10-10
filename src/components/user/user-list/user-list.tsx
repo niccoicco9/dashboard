@@ -4,7 +4,7 @@ import UserCardSkeleton from '@/components/user/user-card-skeleton/user-card-ske
 import UserSidePanel from '@/components/user/user-sidepanel/user-sidepanel';
 import UserListGrid from '@/components/user/user-list/user-grid/UserListGrid';
 import LoadMore from '@/components/user/load-more/load-more';
-import Toolbar from '@/components/toolbar/toolbar';
+import UserToolbar from '@/components/user/user-toolbar/user-toolbar';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll/useInfiniteScroll';
 import { useUserFilters } from '@/hooks/useUserFilters/useUserFilters';
 import styles from '@/components/user/user-list/user-list.module.scss';
@@ -69,7 +69,7 @@ function UserList() {
   if (loading) {
     return (
       <div className={styles.container} ref={containerRef}>
-        <Toolbar onRoleFilter={handleRoleFilter} onSearch={handleSearch} />
+        <UserToolbar onRoleFilter={handleRoleFilter} onSearch={handleSearch} />
         <Grid columns={{ sm: 2, lg: 3, xl: 4 }}>
           {Array.from({ length: 12 }).map((_, index) => (
             <UserCardSkeleton key={index} />
@@ -86,7 +86,7 @@ function UserList() {
 
   return (
     <div className={styles.container} ref={containerRef}>
-        <Toolbar 
+        <UserToolbar 
           onRoleFilter={handleRoleFilter} 
           onSearch={handleSearch}
           userCount={filteredUsers.length}
