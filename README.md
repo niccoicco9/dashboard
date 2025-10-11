@@ -10,7 +10,7 @@ This app has been created as part of a technical exercise.
 
 ## Features
 
-- Search users by name/email
+- Search users by name
 - Filter by role
 - User list with infinite scroll and loading skeletons
 - Side panel with user details
