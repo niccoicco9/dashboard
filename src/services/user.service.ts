@@ -5,9 +5,6 @@ import { API_BASE_URL } from '@/consts/api.const';
 import { mapRandomUser, RandomUserApiUser } from '@/services/utils/user-mappers';
 import { deriveErrorType } from '@/services/utils/error-utils';
 
-const roles: Array<'admin' | 'user' | 'moderator'> = ['admin', 'user', 'moderator'];
-const statuses: Array<'active' | 'inactive' | 'pending'> = ['active', 'inactive', 'pending'];
-
 const DEFAULT_LIMIT = 12;
 
 export const userService = {
