@@ -12,3 +12,6 @@ export const USER_ROLE_OPTION = "User";
 export const NO_USERS_TITLE = "No users found";
 export const NO_USERS_TEXT = "Try adjusting your search or filter criteria to find what you're looking for.";
 export const USERS_COUNT_LABEL = "Users:";
+
+export const ERROR_MODAL_TITLE = "Something went wrong";
+export const ERROR_MODAL_RETRY_BUTTON = "Try Again";

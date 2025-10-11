@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AlertTriangle } from 'lucide-react';
-import Button from '@/components/input/button/button';
+import Modal from '@/components/modal/modal';
 import { errorBus, GlobalErrorEvent } from '@/lib/error-bus';
-import styles from '@/components/error/global-error-handler.module.scss';
-import Typography from '@/components/input/typography/typography';
+import { ERROR_MODAL_TITLE, ERROR_MODAL_RETRY_BUTTON } from '@/consts/text.const';
 
 
 interface GlobalErrorHandlerProps {
@@ -22,21 +21,18 @@ export default function GlobalErrorHandler({ onRetry }: GlobalErrorHandlerProps)
   const close = () => setError(null);
 
   return (
-    <div className={styles.overlay} role="dialog" aria-modal="true">
-      <div className={styles.modal}>
-        <div className={styles.header}>
-          <div className={styles.title}>
-            <AlertTriangle size={20} />
-            <Typography variant="subtitle">Something went wrong</Typography>
-          </div>
-        </div>
-        <div className={styles.body}>
-          <Typography variant="body" className={styles.message}>{error.message}</Typography>
-        </div>
-        <div className={styles.footer}>
-          <Button title="Try Again" onClick={() => { close(); onRetry && onRetry(); }} variant="contained" tone="accent" />
-        </div>
-      </div>
-    </div>
+    <Modal 
+      isOpen={!!error} 
+      onClose={close} 
+      closeOnOverlayClick={false}
+      icon={<AlertTriangle size={20} />}
+      title={ERROR_MODAL_TITLE}
+      message={error?.message}
+      confirmButtonText={ERROR_MODAL_RETRY_BUTTON}
+      onConfirm={() => { 
+        close(); 
+        onRetry && onRetry(); 
+      }}
+    />
   );
 }

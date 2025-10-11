@@ -1,6 +1,7 @@
 import type { ReactNode, HTMLAttributes } from 'react';
+import styles from './typography.module.scss';
 
-type TypographyVariant = 'subtitle' | 'body';
+type TypographyVariant = 'title' | 'subtitle' | 'body';
 
 interface TypographyProps extends HTMLAttributes<HTMLParagraphElement> {
   children: ReactNode;
@@ -9,13 +10,11 @@ interface TypographyProps extends HTMLAttributes<HTMLParagraphElement> {
 }
 
 export default function Typography({ children, variant, className = '', ...rest }: TypographyProps) {
-  const base: Record<TypographyVariant, string> = {
-    subtitle: 'text-2xl',
-    body: 'text-sm text-gray-600',
-  };
+  const variantClass = styles[variant];
+  const combinedClassName = `${variantClass} ${className}`.trim();
 
   return (
-    <p className={`${base[variant]} ${className}`.trim()} style={{ margin: 0 }} {...rest}>
+    <p className={combinedClassName} style={{ margin: 0 }} {...rest}>
       {children}
     </p>
   );
